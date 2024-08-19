@@ -1,0 +1,17 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+.login {
+  background-color: rgba($color: #000000, $alpha: 1);
+}
+.MuiBox-root,
+textarea {
+  outline: none;
+}
+.team-search {
+  [type='search']::-webkit-search-cancel-button,
+  [type='search']::-webkit-search-decoration {
+    -webkit-appearance: none;
+    appearance: none;
+  }
+}
