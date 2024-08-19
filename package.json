@@ -9,7 +9,8 @@
     "build": "tsc && vite build",
     "build:test": "tsc && vite build --mode test",
     "lint": "eslint . --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "deploy": "gh-pages -d dist --dotfiles"
   },
   "dependencies": {
     "@emotion/react": "^11.11.4",
@@ -67,6 +68,7 @@
     "eslint-plugin-react": "^7.34.0",
     "eslint-plugin-react-hooks": "^4.6.0",
     "eslint-plugin-react-refresh": "^0.4.5",
+    "gh-pages": "^6.1.1",
     "postcss": "^8.4.36",
     "prettier": "^3.2.5",
     "sass": "^1.72.0",
