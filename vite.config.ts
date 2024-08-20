@@ -52,13 +52,13 @@ export default defineConfig(({ mode, command }) => {
           },
           chunkFileNames: (chunkInfo) => {
             const facadeModuleId = chunkInfo.facadeModuleId ? chunkInfo.facadeModuleId.split('/') : [];
-            const fileName = facadeModuleId[facadeModuleId.length - 2] || '[name]';
-            return `static/js/${fileName}/[name].[hash].js`;
+            const fileName = facadeModuleId[facadeModuleId.length - 2] || 'multikey';
+            return `static/js/${fileName}/multikey.[hash].js`;
           },
           entryFileNames: (chunkInfo) => {
             const facadeModuleId = chunkInfo.facadeModuleId ? chunkInfo.facadeModuleId.split('/') : [];
-            const fileName = facadeModuleId[facadeModuleId.length - 2] || '[name]';
-            return `static/js/${fileName}/[name].[hash].js`;
+            const fileName = facadeModuleId[facadeModuleId.length - 2] || 'multikey';
+            return `static/js/${fileName}/multikey.[hash].js`;
           }
         }
       }

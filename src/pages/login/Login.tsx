@@ -86,7 +86,7 @@ const Login = () => {
               maxHeight={{ xs: '100%', md: '60vh' }}
               sx={{ overflowY: 'auto', backgroundColor: (theme) => theme.palette.onBody.main, py: 5 }}>
               <Stack width="100%" direction="row" justifyContent="space-between" flexWrap="wrap">
-                <Box width={{ sm: '100%', md: '50%' }}>
+                <Box width={{ sm: '100%', md: '100%' }}>
                   <Typography variant="h3" mb={2} sx={{ fontSize: { xs: '20px', md: '24px', lg: '28px', xl: '30px' } }}>
                     {step === 1 ? t('login.sign') : ''}
                   </Typography>
@@ -119,7 +119,7 @@ const Login = () => {
                     ''
                   )}
                 </Box>
-                <Box width={{ sm: '100%', md: '50%' }}>
+                <Box width={{ sm: '100%', md: '100%' }}>
                   {step === 1 ? (
                     <LoginAccount change={handleChangeStep}></LoginAccount>
                   ) : step === 2 ? (
@@ -129,11 +129,9 @@ const Login = () => {
                       <CreateSetting></CreateSetting>
                     </LoginContext.Provider>
                   ) : step === 4 ? (
-                    <Box display="flex" alignItems="center" height="100%">
                       <LoginContext.Provider value={{ change: handleChangeStep, loginData }}>
                         <ImportWallet></ImportWallet>
                       </LoginContext.Provider>
-                    </Box>
                   ) : (
                     ''
                   )}

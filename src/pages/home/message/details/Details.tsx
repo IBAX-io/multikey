@@ -246,10 +246,10 @@ export const Component = () => {
                                   ml={0.5}
                                   display="inline-flex"
                                   justifyContent="space-between">
-                                  <Button variant="filled" onClick={handleApprove} sx={{ width: 'auto', ml: 2 }} size="large">
+                                  <Button variant="filled" onClick={handleApprove} sx={{  minWidth: 150, ml: 2 }} size="large">
                                     {t('home.approved')}
                                   </Button>
-                                  <Button variant="outlined" onClick={handleRejected} sx={{ width: 'auto', ml: 2 }} size="large">
+                                  <Button variant="outlined" onClick={handleRejected} sx={{ minWidth: 150, ml: 2 }} size="large">
                                     {t('home.rejected')}
                                   </Button>
                                 </Typography>
@@ -314,10 +314,10 @@ export const Component = () => {
                                 ml={0.5}
                                 display="inline-flex"
                                 justifyContent="space-between">
-                                <Button variant="filled" onClick={handleApprove} sx={{ width: 'auto' }} size="large" >
+                                <Button variant="filled" onClick={handleApprove} sx={{  minWidth: 150 }} size="large" >
                                   {t('home.approved')}
                                 </Button>
-                                <Button variant="outlined" onClick={handleRejected} sx={{ width: 'auto', ml: 1 }} size="large" >
+                                <Button variant="outlined" onClick={handleRejected} sx={{  minWidth: 150, ml: 1 }} size="large" >
                                   {t('home.rejected')}
                                 </Button>
                               </Typography>

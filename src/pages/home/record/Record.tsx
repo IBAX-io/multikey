@@ -178,10 +178,10 @@ export const Component = () => {
             flex={1}
             justifyContent="flex-end"
             sx={{ display: { xs: 'none', sm: 'none', md: 'flex' } }}>
-            <Button variant="filled" to={`/receive/${tokenSymbol}/${id}/${keyId}`} component={Link} size="large">
+            <Button sx={{ minWidth: 100 }} variant="filled" to={`/receive/${tokenSymbol}/${id}/${keyId}`} component={Link} size="large">
               {t('home.receive')}
             </Button>
-            <Button variant="filled" to={`/transfer/${tokenSymbol}/${id}/${keyId}`} component={Link} size="large">
+            <Button sx={{ minWidth: 100 }} variant="filled" to={`/transfer/${tokenSymbol}/${id}/${keyId}`} component={Link} size="large">
               {t('home.transfer')}
             </Button>
           </Stack>

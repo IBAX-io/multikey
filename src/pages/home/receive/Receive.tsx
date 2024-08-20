@@ -175,7 +175,7 @@ export const Component = () => {
       <Typography variant="h5" mb={3}>
         {t('home.receive')}
       </Typography>
-      <Box sx={{ width: { md: '30%', sm: '100%' } }} textAlign="center" m="auto" mb={2}>
+      <Box sx={{ width: { md: '80%', sm: '100%' } }} textAlign="center" m="auto" mb={2}>
         <Typography variant="body1" mb={1}>
           {teamSelect.team_name}
         </Typography>
@@ -202,7 +202,7 @@ export const Component = () => {
         </Box>
       </Stack>
       <Box display="flex" justifyContent="center">
-        <Box sx={{ width: { md: '50%', sm: '100%' } }}>
+        <Box sx={{ width: { md: '80%', sm: '100%' } }}>
           <FormControl fullWidth sx={{ mb: 2 }}>
             <InputLabel
               htmlFor="outlined-adornment-count"
@@ -233,7 +233,7 @@ export const Component = () => {
               variant="extended"
               size="medium"
               onClick={handleDownLoadQRCode}
-              sx={{ fontSize: 12, px: 2 }}>
+              sx={{ fontSize: 12, px: 2, minWidth: 120 }}>
               {t('home.saveqr')}
             </Fab>
             <Fab
@@ -241,14 +241,14 @@ export const Component = () => {
               variant="extended"
               size="medium"
               onClick={handleCodyQrValue}
-              sx={{ fontSize: 12, px: 2 }}>
+              sx={{ fontSize: 12, px: 2, minWidth: 120 }}>
               {t('home.cody')}
             </Fab>
             <Fab
               color="primary"
               variant="extended"
               size="medium"
-              sx={{ fontSize: 12, px: 2 }}
+              sx={{ fontSize: 12, px: 2, minWidth: 120 }}
               aria-describedby={id1}
               onClick={handleClick}>
               {t('home.give')}

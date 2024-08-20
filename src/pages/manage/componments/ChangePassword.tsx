@@ -203,7 +203,7 @@ const ChangePassword = (props: { success: () => void }, ref: Ref<unknown> | unde
       <Typography variant="body2" mb={2}>
         {t('manage.setting')}
       </Typography>
-      <Box sx={{ width: { md: '30%', sm: '100%' } }}>
+      <Box sx={{ width: { md: '80%', sm: '100%' } }}>
         <FormControl fullWidth sx={{ mb: 2 }}>
           <InputLabel
             htmlFor="outlined-adornment-oldPassword"
@@ -274,10 +274,10 @@ const ChangePassword = (props: { success: () => void }, ref: Ref<unknown> | unde
           <FormHelperText error={true}>{againPasswordHelper ? againPasswordHelper.text : ''}</FormHelperText>
         </FormControl>
         <Stack direction="row" justifyContent="space-around">
-          <Button variant="outlined" onClick={handleCancel} sx={{ width: '30%' }} size="large">
+          <Button variant="outlined" onClick={handleCancel} sx={{  minWidth: 150 }} size="large">
             {t('login.cancel')}
           </Button>
-          <Button variant="filled" onClick={handleConfirm} sx={{ width: '30%' }} size="large">
+          <Button variant="filled" onClick={handleConfirm} sx={{   minWidth: 150}} size="large">
             {t('login.confirm')}
           </Button>
         </Stack>

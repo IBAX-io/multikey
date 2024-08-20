@@ -270,7 +270,7 @@ export const Component = () => {
         </Typography>
       </Stack>
       <Box display="flex" justifyContent="center">
-        <Box sx={{ width: { md: '40%', sm: '100%' } }}>
+        <Box sx={{ width: { md: '80%', sm: '100%' } }}>
           <FormControl fullWidth sx={{ mb: 2 }}>
             <InputLabel
               htmlFor="outlined-adornment-address"
@@ -378,10 +378,10 @@ export const Component = () => {
             ''
           )}
           <Stack direction="row" justifyContent="space-around">
-            <Button variant="outlined" onClick={handleCancel} sx={{ width: '40%' }} size="large">
+            <Button variant="outlined" onClick={handleCancel} sx={{  minWidth: 150 }} size="large">
               {t('login.cancel')}
             </Button>
-            <Button variant="filled" onClick={handleTransfer} sx={{ width: '40%' }} size="large">
+            <Button variant="filled" onClick={handleTransfer} sx={{ minWidth: 150 }} size="large">
               {t('login.confirm')}
             </Button>
           </Stack>

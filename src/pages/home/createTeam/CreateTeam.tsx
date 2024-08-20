@@ -296,7 +296,7 @@ export const Component = () => {
             {t('home.des')}
           </Typography>
           <form autoComplete="off">
-            <FormControl sx={{ width: { md: '40%', sm: '100%' }, display: 'block', mb: 3 }}>
+            <FormControl sx={{ width: { md: '80%', sm: '100%' }, display: 'block', mb: 3 }}>
               <Typography variant="body1" mb={2}>{t('home.team')}</Typography>
               <Typography variant="body2" mb={2}>
                 {t('home.name')}
@@ -313,7 +313,7 @@ export const Component = () => {
             </FormControl>
             {arrAddress.map((item: string, index: number) => {
               return (
-                <FormControl sx={{ width: { md: '40%', sm: '100%' }, display: 'block', mb: 3 }} key={index} required>
+                <FormControl sx={{ width: { md: '80%', sm: '100%' }, display: 'block', mb: 3 }} key={index} required>
                   <Typography variant="body1" mb={2}>
                     {t('home.sign', { num: index + 1 })}
                   </Typography>
@@ -339,7 +339,7 @@ export const Component = () => {
                         {index >= 3 ? (
                           <Button
                             variant="outlined"
-                            sx={{ ml: 1, width: '35%', fontSize: 12 }}
+                            sx={{ ml: 1, minWidth: 150, fontSize: 12 }}
                             onClick={() => {
                               handleDetele(index);
                             }} size="large">
@@ -357,12 +357,12 @@ export const Component = () => {
                 </FormControl>
               );
             })}
-            <FormControl sx={{ width: { md: '40%', sm: '100%' }, display: 'block', mb: 3, mt: 4 }}>
-              <Button variant="outlined" startIcon={<Add />} onClick={handleAdd} size="large"> 
+            <FormControl sx={{ width: { md: '80%', sm: '100%' }, display: 'block', mb: 3, mt: 4 }}>
+              <Button variant="outlined" startIcon={<Add />} onClick={handleAdd}  sx={{  minWidth: 150 }}  size="large"> 
                 {t('home.new')}
               </Button>
             </FormControl>
-            <FormControl sx={{ width: { md: '40%', sm: '100%' }, display: 'block', mb: 1 }}>
+            <FormControl sx={{ width: { md: '80%', sm: '100%' }, display: 'block', mb: 1 }}>
               <Stack direction="row" spacing={3} mb={3}>
                 <Typography variant="body1" mb={2}>
                   {t('home.num')}
@@ -385,12 +385,12 @@ export const Component = () => {
               </Typography>
               <FormHelperText error={true}>{numHelper ? numHelper.text : ''}</FormHelperText>
             </FormControl>
-            <FormControl sx={{ width: { md: '40%', sm: '100%' }, display: 'block', mb: 1, mt: 5, textAlign: 'center' }}>
+            <FormControl sx={{ width: { md: '80%', sm: '100%' }, display: 'block', mb: 1, mt: 5, textAlign: 'center' }}>
               <Stack direction="row" justifyContent="space-around">
-                <Fab variant="extended" onClick={handleCancel} color="primary">
+                <Fab  sx={{  minWidth: 150 }}  variant="extended" onClick={handleCancel} color="primary">
                   {t('login.cancel')}
                 </Fab>
-                <Fab variant="extended" onClick={handleContinue} color="primary">
+                <Fab  sx={{  minWidth: 150 }}  variant="extended" onClick={handleContinue} color="primary">
                   {t('home.continue')}
                 </Fab>
               </Stack>
@@ -428,7 +428,7 @@ export const Component = () => {
           </Typography>
           <Box
             sx={{
-              width: { md: '40%', sm: '100%' },
+              width: { md: '80%', sm: '100%' },
               display: 'flex',
               justifyContent: 'space-around',
               mb: 1,

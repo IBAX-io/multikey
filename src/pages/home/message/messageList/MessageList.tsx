@@ -278,7 +278,7 @@ export const Component = () => {
                               onClick={() => {
                                 handleMeassageDetails(item, ecoList[index].result);
                               }}
-                              sx={{ fontSize: 12 }} size="large">
+                              sx={{ fontSize: 12 , minWidth: 150}} size="large">
                               {t('home.examine')}
                             </Button>
                           </TableCell>
@@ -356,7 +356,7 @@ export const Component = () => {
                           onClick={() => {
                             handleMeassageDetails(item, ecoList[index].result);
                           }}
-                          sx={{ fontSize: 12 }} size="large">
+                          sx={{ fontSize: 12, minWidth: 150 }} size="large">
                           {t('home.examine')}
                         </Button>
                       </Stack>

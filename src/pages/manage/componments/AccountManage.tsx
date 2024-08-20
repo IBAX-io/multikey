@@ -157,7 +157,7 @@ const AccountManage = () => {
       <Typography variant="body2" mb={3}>
         {t('login.now')}
       </Typography>
-      <List sx={{ maxHeight: '300px', overflowY: 'auto', width: { md: '40%', sm: '100%' } }}>
+      <List sx={{ maxHeight: '300px', overflowY: 'auto', width: { md: '80%', sm: '100%' } }}>
         {accountList
           ? accountList.map((item: AccountItem) => {
               return (
@@ -171,13 +171,13 @@ const AccountManage = () => {
                     </Typography>
                   </Tooltip>
                   {item.isLogin ? (
-                    <Button disabled={item.isLogin} variant="text" sx={{ mx: 1 }} size="large">
+                    <Button disabled={item.isLogin} variant="text" sx={{ mx: 1 , minWidth: 150 }} size="large">
                       {t('manage.current')}
                     </Button>
                   ) : item.isShow ? (
                     <Button
                       variant="outlined"
-                      sx={{ mx: 1 }}
+                      sx={{ mx: 1, minWidth: 150 }}
                       onClick={() => {
                         handleCloseAccount(item.id);
                       }} size="large">
@@ -185,7 +185,7 @@ const AccountManage = () => {
                     </Button>
                   ) : (
                     <Button
-                      sx={{ mx: 1 }}
+                      sx={{ mx: 1 , minWidth: 150}}
                       variant="filled"
                       onClick={() => {
                         handleContinueAccount(item.id);
@@ -199,7 +199,7 @@ const AccountManage = () => {
           : ''}
       </List>
       {isAdd ? (
-        <FormControl sx={{ width: { md: '40%', sm: '100%' }, display: 'block', mb: 1 }}>
+        <FormControl sx={{ width: { md: '80%', sm: '100%' }, display: 'block', mb: 1 }}>
           <Stack direction="row">
             <TextField
               sx={{
@@ -215,7 +215,7 @@ const AccountManage = () => {
               error={nameHelper ? nameHelper.boo : false}
               helperText={nameHelper ? nameHelper.text : ''}
             />
-            <Button variant="outlined" sx={{ mx: 1 }} onClick={handleConfirm} size="large">
+            <Button variant="outlined" sx={{ mx: 1 , minWidth: 150 }} onClick={handleConfirm} size="large">
               {t('login.confirm')}
             </Button>
           </Stack>
@@ -224,7 +224,7 @@ const AccountManage = () => {
         ''
       )}
       <Box>
-        <Button variant="filled" onClick={handleAddAccount} size="large">
+        <Button variant="filled"  sx={{ mx: 1 , minWidth: 150 }} onClick={handleAddAccount} size="large">
           {t('manage.add')}
         </Button>
       </Box>

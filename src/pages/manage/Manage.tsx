@@ -160,11 +160,11 @@ export const Component = () => {
             ''
           )}
           <Stack direction="row">
-            <Button variant="filled" onClick={handleShowMnemonic} size="large">
+            <Button variant="filled" onClick={handleShowMnemonic} sx={{ minWidth: 150  }} size="large">
               {isMnemonic ? t('manage.hide') : t('manage.show')}
             </Button>
             {isMnemonic ? (
-              <Button variant="filled" onClick={handleImportMnemonic} sx={{ mx: 5 }} size="large">
+              <Button variant="filled" onClick={handleImportMnemonic} sx={{ mx: 5,minWidth: 150  }} size="large">
                 {t('manage.import')}
               </Button>
             ) : (
@@ -201,11 +201,11 @@ export const Component = () => {
           ''
         )}
         <Stack direction="row">
-          <Button variant="filled" onClick={handleShowPrivate} size="large">
+          <Button variant="filled" onClick={handleShowPrivate} sx={{ minWidth: 150  }} size="large">
             {isPrivate ? t('manage.hidePrivate') : t('manage.showPrivate')}
           </Button>
           {isPrivate ? (
-            <Button variant="filled" onClick={handleImportPrivate} sx={{ mx: 5 }} size="large">
+            <Button variant="filled" onClick={handleImportPrivate} sx={{ mx: 5,minWidth: 150  }} size="large">
               {t('manage.import')}
             </Button>
           ) : (
@@ -239,7 +239,7 @@ export const Component = () => {
         </Typography>
       </Box>
       <Box mb={3}>
-        <Button variant="filled" sx={{ mb: 2 }} onClick={handleChecKClean} size="large">
+        <Button variant="filled" sx={{ mb: 2 , minWidth: 150}} onClick={handleChecKClean} size="large">
           {t('manage.clean')}
         </Button>
         <Typography variant="body2" mb={2}>
@@ -247,7 +247,7 @@ export const Component = () => {
         </Typography>
       </Box>
       <Box mb={3}>
-        <Button variant="filled" onClick={handleExit} size="large">
+        <Button variant="filled" sx={{  minWidth: 150}} onClick={handleExit} size="large">
           {t('exit')}
         </Button>
       </Box>

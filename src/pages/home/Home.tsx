@@ -238,6 +238,7 @@ const Home = () => {
               {ecoList && ecoList.length ? (
                 <>
                   <Fab
+                    sx={{ minWidth: 120 }}
                     color="primary"
                     to={`/receive/${ecoList[0].tokenSymbol}/${ecoList[0].id}/${keyId}`}
                     component={Link}
@@ -246,15 +247,17 @@ const Home = () => {
                     {t('home.receive')}
                   </Fab>
                   <Fab
+                    sx={{ mx: 2 , minWidth: 120}}
                     color="primary"
                     to={`/transfer/${ecoList[0].tokenSymbol}/${ecoList[0].id}/${keyId}`}
                     component={Link}
-                    sx={{ mx: 2 }}
                     variant="extended">
                     <PaidIcon sx={{ mx: 1 }} />
                     {t('home.transfer')}
                   </Fab>
-                  <Fab to="/create" component={Link} color="primary" variant="extended">
+                  <Fab 
+                    sx={{ minWidth: 120 }}
+                    to="/create" component={Link} color="primary" variant="extended">
                     <AccountBalanceWalletOutlinedIcon sx={{ mx: 1 }} />
                     {t('home.newBuilt')}
                   </Fab>
@@ -330,7 +333,7 @@ const Home = () => {
                   </List>
                 </Box>
                 <Stack direction="row" justifyContent="center">
-                  <Fab color="primary" variant="extended" onClick={handleOpenAdd}>
+                  <Fab sx={{ minWidth: 150 }} color="primary" variant="extended" onClick={handleOpenAdd}>
                     {t('home.add')}
                   </Fab>
                 </Stack>
@@ -357,18 +360,18 @@ const Home = () => {
               </Typography>
             </Stack>
             <Box ml="auto">
-              <Fab color="primary" variant="extended" disabled sx={{ ml: 5 }}>
+              <Fab color="primary" variant="extended" disabled sx={{ ml: 5, minWidth: 120 }}>
                 <ReceiptIcon sx={{ mr: 1 }} />
                 {t('home.receive')}
               </Fab>
-              <Fab color="primary" variant="extended" disabled sx={{ ml: 5 }}>
+              <Fab color="primary" variant="extended" disabled sx={{ ml: 5, minWidth: 120 }}>
                 <PaidIcon sx={{ mr: 1 }} />
                 {t('home.transfer')}
               </Fab>
             </Box>
           </Stack>
           <Stack direction="row" justifyContent="center" alignItems="center">
-            <Fab to="/create" component={Link} sx={{ m: '20%', fontSize: '16px' }} color="primary" variant="extended">
+            <Fab to="/create" component={Link} sx={{ m: '20%', fontSize: '16px',minWidth: 150  }} color="primary" variant="extended">
               {t('home.create')}
             </Fab>
           </Stack>

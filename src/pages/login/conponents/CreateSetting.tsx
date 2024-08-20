@@ -69,7 +69,7 @@ const CreateSetting = () => {
             </Typography>
           </Box>
           <Box textAlign="center" width="100%">
-            <Button variant="filled" sx={{ fontSize: { xs: 12, md: 14 } }} onClick={handleCreateNew} size="large">
+            <Button variant="filled" sx={{ fontSize: { xs: 12, md: 14 } , minWidth: 150}} onClick={handleCreateNew} size="large">
               {t('login.new')}
             </Button>
           </Box>
@@ -92,7 +92,7 @@ const CreateSetting = () => {
             </Typography>
           </Box>
           <Box textAlign="center" width="100%">
-            <Button variant="filled" sx={{ fontSize: { xs: 12, md: 14 } }} onClick={handleLoading} size="large">
+            <Button variant="filled" sx={{ fontSize: { xs: 12, md: 14 } , minWidth: 150}} onClick={handleLoading} size="large">
               {t('login.loading')}
             </Button>
           </Box>

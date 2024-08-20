@@ -409,7 +409,7 @@ export const Component = () => {
         </Typography>
       </Stack>
       <Box display="flex" justifyContent="center">
-        <Box sx={{ width: { md: '40%', sm: '100%' } }}>
+        <Box sx={{ width: { md: '60%', sm: '100%' } }}>
           <FormControl fullWidth sx={{ mb: 2 }}>
             <InputLabel
               variant="outlined"
@@ -549,10 +549,10 @@ export const Component = () => {
             ''
           )}
           <Stack direction="row" justifyContent="space-around">
-            <Button variant="outlined" onClick={handleCancel} sx={{ width: '40%' }} size="large">
+            <Button variant="outlined" onClick={handleCancel} sx={{ width: '40%',minWidth:120 }} size="large">
               {t('login.cancel')}
             </Button>
-            <Button variant="filled" onClick={handleTransfer} sx={{ width: '40%' }} size="large">
+            <Button variant="filled" onClick={handleTransfer} sx={{ width: '40%',minWidth:120 }} size="large">
               {t('login.confirm')}
             </Button>
           </Stack>
