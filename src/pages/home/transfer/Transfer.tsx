@@ -549,10 +549,18 @@ export const Component = () => {
             ''
           )}
           <Stack direction="row" justifyContent="space-around">
-            <Button variant="outlined" onClick={handleCancel} sx={{ width: '40%',minWidth:120 }} size="large">
+            <Button
+              variant="outlined"
+              onClick={handleCancel}
+              sx={{ width: '40%', minWidth: 120, lineHeight: 2.4 }}
+              size="large">
               {t('login.cancel')}
             </Button>
-            <Button variant="filled" onClick={handleTransfer} sx={{ width: '40%',minWidth:120 }} size="large">
+            <Button
+              variant="filled"
+              onClick={handleTransfer}
+              sx={{ width: '40%', minWidth: 120, lineHeight: 2.4 }}
+              size="large">
               {t('login.confirm')}
             </Button>
           </Stack>

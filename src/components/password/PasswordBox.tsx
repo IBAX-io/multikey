@@ -133,8 +133,12 @@ const PasswordBox = ({
             />
           </FormControl>
           <DialogActions>
-            <Button onClick={handleClose} size="large">{t('login.cancel')}</Button>
-            <Button onClick={handleConfirm} size="large">{t('login.confirm')}</Button>
+            <Button variant="outlined" sx={{ minWidth: 150, lineHeight: 2.4 }} onClick={handleClose} size="large">
+              {t('login.cancel')}
+            </Button>
+            <Button variant="filled" sx={{ minWidth: 150, lineHeight: 2.4 }} onClick={handleConfirm} size="large">
+              {t('login.confirm')}
+            </Button>
           </DialogActions>
         </Box>
       </Modal>

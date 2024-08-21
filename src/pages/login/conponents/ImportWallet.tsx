@@ -244,10 +244,10 @@ const ImportWallet = () => {
         </CustomTabPanel>
       </Box>
       <Box display="flex" justifyContent="space-around">
-        <Button variant="filled" sx={{  minWidth: 150 }} onClick={handleCancel} size="large">
+        <Button variant="filled" sx={{ minWidth: 150, lineHeight: 2.4 }} onClick={handleCancel} size="large">
           {t('login.cancel')}
         </Button>
-        <Button variant="filled" sx={{ minWidth: 150 }} onClick={handleImport} size="large">
+        <Button variant="filled" sx={{ minWidth: 150, lineHeight: 2.4 }} onClick={handleImport} size="large">
           {t('login.start')}
         </Button>
       </Box>

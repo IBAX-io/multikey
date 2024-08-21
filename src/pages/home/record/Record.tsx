@@ -178,10 +178,20 @@ export const Component = () => {
             flex={1}
             justifyContent="flex-end"
             sx={{ display: { xs: 'none', sm: 'none', md: 'flex' } }}>
-            <Button sx={{ minWidth: 100 }} variant="filled" to={`/receive/${tokenSymbol}/${id}/${keyId}`} component={Link} size="large">
+            <Button
+              sx={{ minWidth: 120, lineHeight: 2.4 }}
+              variant="filled"
+              to={`/receive/${tokenSymbol}/${id}/${keyId}`}
+              component={Link}
+              size="large">
               {t('home.receive')}
             </Button>
-            <Button sx={{ minWidth: 100 }} variant="filled" to={`/transfer/${tokenSymbol}/${id}/${keyId}`} component={Link} size="large">
+            <Button
+              sx={{ minWidth: 120, lineHeight: 2.4 }}
+              variant="filled"
+              to={`/transfer/${tokenSymbol}/${id}/${keyId}`}
+              component={Link}
+              size="large">
               {t('home.transfer')}
             </Button>
           </Stack>
@@ -192,10 +202,20 @@ export const Component = () => {
           spacing={3}
           justifyContent="space-around"
           sx={{ display: { xs: 'flex', sm: 'flex', md: 'none' } }}>
-          <Button variant="filled" to={`/receive/${tokenSymbol}/${id}/${keyId}`} component={Link} size="large">
+          <Button
+            sx={{ minWidth: 120, lineHeight: 2.4 }}
+            variant="filled"
+            to={`/receive/${tokenSymbol}/${id}/${keyId}`}
+            component={Link}
+            size="large">
             {t('home.receive')}
           </Button>
-          <Button variant="filled" to={`/transfer/${tokenSymbol}/${id}/${keyId}`} component={Link} size="large">
+          <Button
+            sx={{ minWidth: 120, lineHeight: 2.4 }}
+            variant="filled"
+            to={`/transfer/${tokenSymbol}/${id}/${keyId}`}
+            component={Link}
+            size="large">
             {t('home.transfer')}
           </Button>
         </Stack>

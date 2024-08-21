@@ -352,7 +352,7 @@ const MainAppBar: FC<HeaderProps> = ({ onDrawerToggle, window }) => {
                 })
               : ''}
             <MenuItem sx={{ display: 'flex', justifyContent: 'center', mt: 3 }}>
-              <Button variant="filled" onClick={handleExit} size="large">
+              <Button variant="filled" sx={{ minWidth: 150, lineHeight: 2.4 }} onClick={handleExit} size="large">
                 {t('exit')}
               </Button>
             </MenuItem>

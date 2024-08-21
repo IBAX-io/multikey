@@ -250,8 +250,10 @@ const LoginAccount = ({ change }: { change: (_num: number) => void }) => {
         {!isCheck ? <FormHelperText>{t('login.checkKnow')}</FormHelperText> : ''}
       </FormControl>
       <Stack direction="row" justifyContent="end">
-        <Button onClick={handleCreateAccount} sx={{  minWidth: 150 }} size="large">{t('login.account')}</Button>
-        <Button variant="filled" onClick={handleSubmit} sx={{ ml: 3, minWidth: 150 }} size="large">
+        <Button variant="outlined" onClick={handleCreateAccount} sx={{ minWidth: 200, lineHeight: 2.4 }} size="large">
+          {t('login.account')}
+        </Button>
+        <Button variant="filled" onClick={handleSubmit} sx={{ ml: 3, minWidth: 200, lineHeight: 2.4 }} size="large">
           {t('login.sign')}
         </Button>
       </Stack>

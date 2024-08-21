@@ -274,10 +274,10 @@ const ChangePassword = (props: { success: () => void }, ref: Ref<unknown> | unde
           <FormHelperText error={true}>{againPasswordHelper ? againPasswordHelper.text : ''}</FormHelperText>
         </FormControl>
         <Stack direction="row" justifyContent="space-around">
-          <Button variant="outlined" onClick={handleCancel} sx={{  minWidth: 150 }} size="large">
+          <Button variant="outlined" onClick={handleCancel} sx={{ minWidth: 150, lineHeight: 2.4 }} size="large">
             {t('login.cancel')}
           </Button>
-          <Button variant="filled" onClick={handleConfirm} sx={{   minWidth: 150}} size="large">
+          <Button variant="filled" onClick={handleConfirm} sx={{ minWidth: 150, lineHeight: 2.4 }} size="large">
             {t('login.confirm')}
           </Button>
         </Stack>

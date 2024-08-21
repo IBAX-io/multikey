@@ -246,10 +246,18 @@ export const Component = () => {
                                   ml={0.5}
                                   display="inline-flex"
                                   justifyContent="space-between">
-                                  <Button variant="filled" onClick={handleApprove} sx={{  minWidth: 150, ml: 2 }} size="large">
+                                  <Button
+                                    variant="filled"
+                                    onClick={handleApprove}
+                                    sx={{ minWidth: 150, ml: 2 }}
+                                    size="large">
                                     {t('home.approved')}
                                   </Button>
-                                  <Button variant="outlined" onClick={handleRejected} sx={{ minWidth: 150, ml: 2 }} size="large">
+                                  <Button
+                                    variant="outlined"
+                                    onClick={handleRejected}
+                                    sx={{ minWidth: 150, ml: 2 }}
+                                    size="large">
                                     {t('home.rejected')}
                                   </Button>
                                 </Typography>
@@ -314,10 +322,14 @@ export const Component = () => {
                                 ml={0.5}
                                 display="inline-flex"
                                 justifyContent="space-between">
-                                <Button variant="filled" onClick={handleApprove} sx={{  minWidth: 150 }} size="large" >
+                                <Button variant="filled" onClick={handleApprove} sx={{ minWidth: 150 }} size="large">
                                   {t('home.approved')}
                                 </Button>
-                                <Button variant="outlined" onClick={handleRejected} sx={{  minWidth: 150, ml: 1 }} size="large" >
+                                <Button
+                                  variant="outlined"
+                                  onClick={handleRejected}
+                                  sx={{ minWidth: 150, ml: 1 }}
+                                  size="large">
                                   {t('home.rejected')}
                                 </Button>
                               </Typography>
@@ -339,11 +351,14 @@ export const Component = () => {
       )}
       <Box sx={{ py: 2, textAlign: 'center' }}>
         <Button
+          variant="outlined"
+          sx={{ minWidth: 150, lineHeight: 2.4 }}
           component={Link}
           to={`${currNetwork.blockexplorer}/blockchain/hash/${txhash}`}
           target="_blank"
           fullWidth={false}
-          endIcon={<ArrowForwardIcon  />} size="large">
+          endIcon={<ArrowForwardIcon />}
+          size="large">
           {
             <Typography variant="body2" sx={{ ml: 1 }}>
               {t('home.explore')}

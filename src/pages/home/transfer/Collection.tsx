@@ -378,10 +378,10 @@ export const Component = () => {
             ''
           )}
           <Stack direction="row" justifyContent="space-around">
-            <Button variant="outlined" onClick={handleCancel} sx={{  minWidth: 150 }} size="large">
+            <Button variant="outlined" onClick={handleCancel} sx={{ minWidth: 150, lineHeight: 2.4 }} size="large">
               {t('login.cancel')}
             </Button>
-            <Button variant="filled" onClick={handleTransfer} sx={{ minWidth: 150 }} size="large">
+            <Button variant="filled" onClick={handleTransfer} sx={{ minWidth: 150, lineHeight: 2.4 }} size="large">
               {t('login.confirm')}
             </Button>
           </Stack>

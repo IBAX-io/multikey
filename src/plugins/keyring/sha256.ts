@@ -1,5 +1,5 @@
 import elliptic from 'elliptic';
-// eslint-disable-next-line camelcase
+
 import { sha3_256 } from 'js-sha3';
 import CryptoJS, { SHA512 } from 'crypto-js';
 import Long from 'long';
@@ -27,9 +27,7 @@ export default {
   publicToID(publicKey: string): string {
     if (publicKey.startsWith('04')) {
       //  const keyDigest = SHA256(CryptoJS.enc.Hex.parse(publicKey.slice(2)));
-      const keyDigest = CryptoJS.enc.Hex.parse(
-        sha3_256(convert.toArrayBuffer(publicKey.slice(2)) as any)
-      );
+      const keyDigest = CryptoJS.enc.Hex.parse(sha3_256(convert.toArrayBuffer(publicKey.slice(2)) as any));
       const hashDigest = SHA512(keyDigest as any).toString();
       const bytes = [];
       for (let i = 0; i < hashDigest.length; i += 2) {
@@ -40,16 +38,12 @@ export default {
       const crcDigits = value.split('').map((l) => parseInt(l, 10));
       const addrChecksum = keyring.checksum(crcDigits.slice(0, -1));
       const crcLong = Long.fromString(crc);
-      const address = crcLong
-        .sub(keyring.remainder(crc, 10))
-        .add(addrChecksum)
-        .toString();
+      const address = crcLong.sub(keyring.remainder(crc, 10)).add(addrChecksum).toString();
       return address;
     }
     throw new Error('Unsupported public key format');
   },
   hexHash(data: any): string {
-    // eslint-disable-next-line camelcase
     const txHash = sha3_256.arrayBuffer(data);
     const hexHash = sha3_256(txHash);
     return hexHash;
@@ -64,16 +58,8 @@ export default {
   verify(privateKey: any, msg: any) {
     const hash = sha3_256(msg);
     const signature = ec.sign(hash, privateKey, 'hex', { canonical: true });
-    const hexToDecimal = ec
-      .keyFromPrivate(msg, 'hex')
-      .getPrivate()
-      .toString(10);
-    const pubKeyRecovered = ec.recoverPubKey(
-      hexToDecimal,
-      signature,
-      signature.recoveryParam as any,
-      'hex'
-    );
+    const hexToDecimal = ec.keyFromPrivate(msg, 'hex').getPrivate().toString(10);
+    const pubKeyRecovered = ec.recoverPubKey(hexToDecimal, signature, signature.recoveryParam as any, 'hex');
     const validSig = ec.verify(msg, signature, pubKeyRecovered);
     return validSig;
   }

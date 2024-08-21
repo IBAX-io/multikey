@@ -88,7 +88,10 @@ const Login = () => {
               {step === 1 ? (
                 <Stack width="100%" direction="row" justifyContent="space-between" flexWrap="wrap">
                   <Box width={{ sm: '100%', md: '50%' }}>
-                    <Typography variant="h3" mb={2} sx={{ fontSize: { xs: '20px', md: '24px', lg: '28px', xl: '30px' } }}>
+                    <Typography
+                      variant="h3"
+                      mb={2}
+                      sx={{ fontSize: { xs: '20px', md: '24px', lg: '28px', xl: '30px' } }}>
                       {t('login.sign')}
                     </Typography>
                     <Typography variant="body2" mb={2}>
@@ -108,9 +111,11 @@ const Login = () => {
                 </Stack>
               ) : step === 3 ? (
                 <Stack width="100%" direction="row" justifyContent="space-between" flexWrap="wrap">
-                  <Box width={{ sm: '100%', md: '50%' }}>
-                    <Typography variant="h3" mb={2} sx={{ fontSize: { xs: '20px', md: '24px', lg: '28px', xl: '30px' } }}>
-                    </Typography>
+                  <Box width={{ sm: '100%', md: '30%' }}>
+                    <Typography
+                      variant="h3"
+                      mb={2}
+                      sx={{ fontSize: { xs: '20px', md: '24px', lg: '28px', xl: '30px' } }}></Typography>
                     <Box display="flex" justifyContent="center" alignItems="center" height="80%">
                       <Box>
                         <Box display="flex" justifyContent="center" mb={{ xs: 1, md: 2, lg: 3 }}>
@@ -132,7 +137,7 @@ const Login = () => {
                       </Box>
                     </Box>
                   </Box>
-                  <Box width={{ sm: '100%', md: '50%' }}>
+                  <Box width={{ sm: '100%', md: '70%' }}>
                     <LoginContext.Provider value={{ change: handleChangeStep, loginData }}>
                       <CreateSetting></CreateSetting>
                     </LoginContext.Provider>

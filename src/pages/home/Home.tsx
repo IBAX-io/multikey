@@ -248,7 +248,7 @@ const Home = () => {
                     {t('home.receive')}
                   </Fab>
                   <Fab
-                    sx={{ mx: 2 , minWidth: 120}}
+                    sx={{ mx: 2, minWidth: 120 }}
                     color="primary"
                     to={`/transfer/${ecoList[0].tokenSymbol}/${ecoList[0].id}/${keyId}`}
                     component={Link}
@@ -256,9 +256,7 @@ const Home = () => {
                     <PaidIcon sx={{ mx: 1 }} />
                     {t('home.transfer')}
                   </Fab>
-                  <Fab 
-                    sx={{ minWidth: 120 }}
-                    to="/create" component={Link} color="primary" variant="extended">
+                  <Fab sx={{ minWidth: 120 }} to="/create" component={Link} color="primary" variant="extended">
                     <AccountBalanceWalletOutlinedIcon sx={{ mx: 1 }} />
                     {t('home.newBuilt')}
                   </Fab>
@@ -334,9 +332,14 @@ const Home = () => {
                   </List>
                 </Box>
                 <Stack direction="row" justifyContent="center">
-                  <Fab sx={{ minWidth: 150 }} color="primary" variant="extended" onClick={handleOpenAdd}>
+                  <Button
+                    sx={{ fontSize: '16px', minWidth: 150, lineHeight: 2.4 }}
+                    color="primary"
+                    variant="filled"
+                    size="large"
+                    onClick={handleOpenAdd}>
                     {t('home.add')}
-                  </Fab>
+                  </Button>
                 </Stack>
               </>
             ) : (
@@ -372,7 +375,13 @@ const Home = () => {
             </Box>
           </Stack>
           <Stack direction="row" justifyContent="center" alignItems="center">
-            <Button to="/create" component={Link} sx={{ m: '20%', fontSize: '16px',minWidth: 150  }} color="primary" variant="filled"  size="large">
+            <Button
+              to="/create"
+              component={Link}
+              sx={{ m: '20%', fontSize: '16px', minWidth: 150, lineHeight: 2.4 }}
+              color="primary"
+              variant="filled"
+              size="large">
               {t('home.create')}
             </Button>
           </Stack>

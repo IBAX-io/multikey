@@ -44,7 +44,7 @@ export const encodeLength = (length: number): Uint8Array => {
   }
   const offset = buffer.length - i;
   const uint8 = new Uint8Array(1 + offset);
-  // eslint-disable-next-line no-bitwise
+
   uint8[0] = 128 | offset;
   for (let n = 1; i <= buffer.length; n += 1, i += 1) {
     uint8[n] = buffer[i];

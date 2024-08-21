@@ -275,10 +275,12 @@ export const Component = () => {
                           <TableCell align="center">2/{teamSelect.owner_quantity}</TableCell>
                           <TableCell align="center">
                             <Button
+                              variant="outlined"
                               onClick={() => {
                                 handleMeassageDetails(item, ecoList[index].result);
                               }}
-                              sx={{ fontSize: 12 , minWidth: 150}} size="large">
+                              sx={{ fontSize: 12, minWidth: 150, lineHeight: 2.4 }}
+                              size="large">
                               {t('home.examine')}
                             </Button>
                           </TableCell>
@@ -353,10 +355,12 @@ export const Component = () => {
                           </Typography>
                         </Stack>
                         <Button
+                          variant="outlined"
                           onClick={() => {
                             handleMeassageDetails(item, ecoList[index].result);
                           }}
-                          sx={{ fontSize: 12, minWidth: 150 }} size="large">
+                          sx={{ fontSize: 12, minWidth: 150, lineHeight: 2.4 }}
+                          size="large">
                           {t('home.examine')}
                         </Button>
                       </Stack>

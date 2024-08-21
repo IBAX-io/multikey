@@ -231,24 +231,24 @@ export const Component = () => {
             <Fab
               color="primary"
               variant="extended"
-              size="medium"
+              size="large"
               onClick={handleDownLoadQRCode}
-              sx={{ fontSize: 12, px: 2, minWidth: 120 }}>
+              sx={{ fontSize: 12, px: 2, minWidth: 120, lineHeight: 2.4 }}>
               {t('home.saveqr')}
             </Fab>
             <Fab
               color="primary"
               variant="extended"
-              size="medium"
+              size="large"
               onClick={handleCodyQrValue}
-              sx={{ fontSize: 12, px: 2, minWidth: 120 }}>
+              sx={{ fontSize: 12, px: 2, minWidth: 120, lineHeight: 2.4 }}>
               {t('home.cody')}
             </Fab>
             <Fab
               color="primary"
               variant="extended"
-              size="medium"
-              sx={{ fontSize: 12, px: 2, minWidth: 120 }}
+              size="large"
+              sx={{ fontSize: 12, px: 2, minWidth: 120, lineHeight: 2.4 }}
               aria-describedby={id1}
               onClick={handleClick}>
               {t('home.give')}

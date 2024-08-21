@@ -20,7 +20,7 @@ export default {
 
     for (let i = 0; i < digits.length; i += 1) {
       const digit = digits[i];
-      // eslint-disable-next-line no-bitwise
+
       if (i & 1) {
         first += digit;
       } else {

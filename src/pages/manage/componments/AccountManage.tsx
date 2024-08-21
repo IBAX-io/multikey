@@ -171,25 +171,31 @@ const AccountManage = () => {
                     </Typography>
                   </Tooltip>
                   {item.isLogin ? (
-                    <Button disabled={item.isLogin} variant="text" sx={{ mx: 1 , minWidth: 150 }} size="large">
+                    <Button
+                      disabled={item.isLogin}
+                      variant="text"
+                      sx={{ mx: 1, minWidth: 150, lineHeight: 2.4 }}
+                      size="large">
                       {t('manage.current')}
                     </Button>
                   ) : item.isShow ? (
                     <Button
                       variant="outlined"
-                      sx={{ mx: 1, minWidth: 150 }}
+                      sx={{ mx: 1, minWidth: 150, lineHeight: 2.4 }}
                       onClick={() => {
                         handleCloseAccount(item.id);
-                      }} size="large">
+                      }}
+                      size="large">
                       {t('manage.close')}
                     </Button>
                   ) : (
                     <Button
-                      sx={{ mx: 1 , minWidth: 150}}
+                      sx={{ mx: 1, minWidth: 150, lineHeight: 2.4 }}
                       variant="filled"
                       onClick={() => {
                         handleContinueAccount(item.id);
-                      }} size="large">
+                      }}
+                      size="large">
                       {t('manage.use')}
                     </Button>
                   )}
@@ -215,7 +221,11 @@ const AccountManage = () => {
               error={nameHelper ? nameHelper.boo : false}
               helperText={nameHelper ? nameHelper.text : ''}
             />
-            <Button variant="outlined" sx={{ mx: 1 , minWidth: 150 }} onClick={handleConfirm} size="large">
+            <Button
+              variant="outlined"
+              sx={{ mx: 1, minWidth: 150, lineHeight: 2.4 }}
+              onClick={handleConfirm}
+              size="large">
               {t('login.confirm')}
             </Button>
           </Stack>
@@ -224,7 +234,7 @@ const AccountManage = () => {
         ''
       )}
       <Box>
-        <Button variant="filled"  sx={{ mx: 1 , minWidth: 150 }} onClick={handleAddAccount} size="large">
+        <Button variant="filled" sx={{ mx: 1, minWidth: 150, lineHeight: 2.4 }} onClick={handleAddAccount} size="large">
           {t('manage.add')}
         </Button>
       </Box>

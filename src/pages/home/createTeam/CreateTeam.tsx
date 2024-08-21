@@ -297,7 +297,9 @@ export const Component = () => {
           </Typography>
           <form autoComplete="off">
             <FormControl sx={{ width: { md: '60%', sm: '100%' }, display: 'block', mb: 3 }}>
-              <Typography variant="body1" mb={2}>{t('home.team')}</Typography>
+              <Typography variant="body1" mb={2}>
+                {t('home.team')}
+              </Typography>
               <Typography variant="body2" mb={2}>
                 {t('home.name')}
               </Typography>
@@ -339,10 +341,11 @@ export const Component = () => {
                         {index >= 3 ? (
                           <Button
                             variant="outlined"
-                            sx={{ ml: 1, minWidth: 150, fontSize: 12 }}
+                            sx={{ ml: 1, minWidth: 150 }}
                             onClick={() => {
                               handleDetele(index);
-                            }} size="large">
+                            }}
+                            size="large">
                             {t('home.delete')}
                           </Button>
                         ) : (
@@ -358,7 +361,12 @@ export const Component = () => {
               );
             })}
             <FormControl sx={{ width: { md: '60%', sm: '100%' }, display: 'block', mb: 3, mt: 4 }}>
-              <Button variant="outlined" startIcon={<Add />} onClick={handleAdd} sx={{ minWidth: 150 }} size="large">
+              <Button
+                variant="filled"
+                startIcon={<Add />}
+                onClick={handleAdd}
+                sx={{ minWidth: 150, lineHeight: 2.4 }}
+                size="large">
                 {t('home.new')}
               </Button>
             </FormControl>
@@ -387,10 +395,20 @@ export const Component = () => {
             </FormControl>
             <FormControl sx={{ width: { md: '60%', sm: '100%' }, display: 'block', mb: 1, mt: 5, textAlign: 'center' }}>
               <Stack direction="row" justifyContent="space-around">
-                <Button sx={{ minWidth: 150 }} variant="outlined" onClick={handleCancel} color="primary" size="large">
+                <Button
+                  sx={{ minWidth: 150, lineHeight: 2.4 }}
+                  variant="outlined"
+                  onClick={handleCancel}
+                  color="primary"
+                  size="large">
                   {t('login.cancel')}
                 </Button>
-                <Button sx={{ minWidth: 150 }} variant="filled" onClick={handleContinue} color="primary" size="large">
+                <Button
+                  sx={{ minWidth: 150, lineHeight: 2.4 }}
+                  variant="filled"
+                  onClick={handleContinue}
+                  color="primary"
+                  size="large">
                   {t('home.continue')}
                 </Button>
               </Stack>

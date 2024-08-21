@@ -138,7 +138,7 @@ const CreateAccount = ({
         {!isCheck ? <FormHelperText>{t('login.checkKnow')}</FormHelperText> : ''}
       </FormControl>
       <Stack direction="row" justifyContent="end">
-        <Button variant="filled" onClick={handleSubmit} sx={{  minWidth: 150 }}  size="large">
+        <Button variant="filled" onClick={handleSubmit} sx={{ minWidth: 200, lineHeight: 2.4 }} size="large">
           {t('login.create')}
         </Button>
       </Stack>

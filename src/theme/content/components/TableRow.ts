@@ -8,7 +8,6 @@ interface TableRowType {
   };
 }
 
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
 export const getTableRow = (theme: Theme): TableRowType => {
   const { palette } = theme;
   return {

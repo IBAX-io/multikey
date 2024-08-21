@@ -86,7 +86,6 @@ const AddToken = ({
         list: [...data!]
       };
     });
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [ecoParams]);
   useEffect(() => {
     if (isAdd) {

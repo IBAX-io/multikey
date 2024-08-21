@@ -9,7 +9,6 @@ interface TableCellType {
   };
 }
 
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
 export const getTableCell = (theme: Theme): TableCellType => {
   const { palette } = theme;
   return {
