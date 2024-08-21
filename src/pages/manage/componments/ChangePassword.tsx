@@ -203,7 +203,7 @@ const ChangePassword = (props: { success: () => void }, ref: Ref<unknown> | unde
       <Typography variant="body2" mb={2}>
         {t('manage.setting')}
       </Typography>
-      <Box sx={{ width: { md: '80%', sm: '100%' } }}>
+      <Box sx={{ width: { md: '60%', sm: '100%' } }}>
         <FormControl fullWidth sx={{ mb: 2 }}>
           <InputLabel
             htmlFor="outlined-adornment-oldPassword"

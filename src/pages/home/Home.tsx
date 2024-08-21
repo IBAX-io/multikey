@@ -28,6 +28,7 @@ import {
   Alert,
   Avatar,
   Box,
+  Button,
   Fab,
   List,
   ListItem,
@@ -371,9 +372,9 @@ const Home = () => {
             </Box>
           </Stack>
           <Stack direction="row" justifyContent="center" alignItems="center">
-            <Fab to="/create" component={Link} sx={{ m: '20%', fontSize: '16px',minWidth: 150  }} color="primary" variant="extended">
+            <Button to="/create" component={Link} sx={{ m: '20%', fontSize: '16px',minWidth: 150  }} color="primary" variant="filled"  size="large">
               {t('home.create')}
-            </Fab>
+            </Button>
           </Stack>
         </Box>
       )}
