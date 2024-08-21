@@ -85,16 +85,32 @@ const Login = () => {
               minHeight={{ xs: '100%', md: '384px' }}
               maxHeight={{ xs: '100%', md: '60vh' }}
               sx={{ overflowY: 'auto', backgroundColor: (theme) => theme.palette.onBody.main, py: 5 }}>
-              <Stack width="100%" direction="row" justifyContent="space-between" flexWrap="wrap">
-                <Box width={{ sm: '100%', md: '100%' }}>
-                  <Typography variant="h3" mb={2} sx={{ fontSize: { xs: '20px', md: '24px', lg: '28px', xl: '30px' } }}>
-                    {step === 1 ? t('login.sign') : ''}
-                  </Typography>
-                  {step === 1 ? (
+              {step === 1 ? (
+                <Stack width="100%" direction="row" justifyContent="space-between" flexWrap="wrap">
+                  <Box width={{ sm: '100%', md: '50%' }}>
+                    <Typography variant="h3" mb={2} sx={{ fontSize: { xs: '20px', md: '24px', lg: '28px', xl: '30px' } }}>
+                      {t('login.sign')}
+                    </Typography>
                     <Typography variant="body2" mb={2}>
                       {t('login.continue')}
                     </Typography>
-                  ) : step === 3 ? (
+                  </Box>
+                  <Box width={{ sm: '100%', md: '50%' }}>
+                    <LoginAccount change={handleChangeStep}></LoginAccount>
+                  </Box>
+                </Stack>
+              ) : step === 2 ? (
+                <Stack width="100%" direction="row" justifyContent="space-between" flexWrap="wrap">
+                  <Box width={{ sm: '100%', md: '50%' }}></Box>
+                  <Box width={{ sm: '100%', md: '50%' }}>
+                    <CreateAccount change={handleChangeStep} changeLogin={handleChangeLoginData}></CreateAccount>
+                  </Box>
+                </Stack>
+              ) : step === 3 ? (
+                <Stack width="100%" direction="row" justifyContent="space-between" flexWrap="wrap">
+                  <Box width={{ sm: '100%', md: '50%' }}>
+                    <Typography variant="h3" mb={2} sx={{ fontSize: { xs: '20px', md: '24px', lg: '28px', xl: '30px' } }}>
+                    </Typography>
                     <Box display="flex" justifyContent="center" alignItems="center" height="80%">
                       <Box>
                         <Box display="flex" justifyContent="center" mb={{ xs: 1, md: 2, lg: 3 }}>
@@ -115,28 +131,24 @@ const Login = () => {
                         </Box>
                       </Box>
                     </Box>
-                  ) : (
-                    ''
-                  )}
-                </Box>
-                <Box width={{ sm: '100%', md: '100%' }}>
-                  {step === 1 ? (
-                    <LoginAccount change={handleChangeStep}></LoginAccount>
-                  ) : step === 2 ? (
-                    <CreateAccount change={handleChangeStep} changeLogin={handleChangeLoginData}></CreateAccount>
-                  ) : step === 3 ? (
+                  </Box>
+                  <Box width={{ sm: '100%', md: '50%' }}>
                     <LoginContext.Provider value={{ change: handleChangeStep, loginData }}>
                       <CreateSetting></CreateSetting>
                     </LoginContext.Provider>
-                  ) : step === 4 ? (
-                      <LoginContext.Provider value={{ change: handleChangeStep, loginData }}>
-                        <ImportWallet></ImportWallet>
-                      </LoginContext.Provider>
-                  ) : (
-                    ''
-                  )}
-                </Box>
-              </Stack>
+                  </Box>
+                </Stack>
+              ) : step === 4 ? (
+                <Stack width="100%" direction="row" justifyContent="space-between" flexWrap="wrap">
+                  <Box width={{ sm: '100%', md: '100%' }}>
+                    <LoginContext.Provider value={{ change: handleChangeStep, loginData }}>
+                      <ImportWallet></ImportWallet>
+                    </LoginContext.Provider>
+                  </Box>
+                </Stack>
+              ) : (
+                ''
+              )}
             </Box>
           </Box>
           <Box>
