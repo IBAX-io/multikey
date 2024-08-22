@@ -66,6 +66,8 @@ const PasswordBox = ({ isCheck, close, confirm }: { isCheck: boolean; close: () 
             boxShadow: 24,
             p: 2,
             borderRadius: 2,
+            minWidth: 460,
+            maxWidth: 600,
             width: { xs: '90%', md: '50%', lg: '30%', xl: '20%' }
           }}>
           <Typography id="modal-modal-title" variant="h6" component="h2" mb={3}>
