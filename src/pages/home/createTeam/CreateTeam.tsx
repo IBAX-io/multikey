@@ -297,7 +297,7 @@ export const Component = () => {
           </Typography>
           <form autoComplete="off">
             <FormControl sx={{ width: { md: '60%', sm: '100%' }, display: 'block', mb: 3 }}>
-              <Typography variant="body1" mb={2}>
+              <Typography variant="h6" mb={2}>
                 {t('home.team')}
               </Typography>
               <Typography variant="body2" mb={2}>
