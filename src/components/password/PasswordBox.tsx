@@ -107,6 +107,8 @@ const PasswordBox = ({
             left: '50%',
             transform: 'translate(-50%, -50%)',
             width: { xs: '90%', md: '50%', lg: '30%', xl: '20%' },
+            minWidth: 460,
+            maxWidth: 600,
             bgcolor: 'background.paper',
             boxShadow: 24,
             p: 2,
