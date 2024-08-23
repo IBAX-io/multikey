@@ -9,6 +9,7 @@ import ContentCopyIcon from '@mui/icons-material/ContentCopy';
 import {
   Alert,
   Box,
+  Button,
   Fab,
   FormControl,
   FormHelperText,
@@ -228,31 +229,31 @@ export const Component = () => {
             <FormHelperText error={true}>{amountHelper ? amountHelper.text : ''}</FormHelperText>
           </FormControl>
           <Stack direction="row" justifyContent="space-between" flexWrap="wrap">
-            <Fab
+            <Button
               color="primary"
-              variant="extended"
+              variant="filled"
               size="large"
               onClick={handleDownLoadQRCode}
-              sx={{ fontSize: 12, px: 2, minWidth: 120, lineHeight: 2.4 }}>
+              sx={{ fontSize: 12, px: 2, minWidth: 120, lineHeight: 2.4, height: 52 }}>
               {t('home.saveqr')}
-            </Fab>
-            <Fab
+            </Button>
+            <Button
               color="primary"
-              variant="extended"
+              variant="filled"
               size="large"
               onClick={handleCodyQrValue}
-              sx={{ fontSize: 12, px: 2, minWidth: 120, lineHeight: 2.4 }}>
+              sx={{ fontSize: 12, px: 2, minWidth: 120, lineHeight: 2.4, height: 52 }}>
               {t('home.cody')}
-            </Fab>
-            <Fab
+            </Button>
+            <Button
               color="primary"
-              variant="extended"
+              variant="filled"
               size="large"
-              sx={{ fontSize: 12, px: 2, minWidth: 120, lineHeight: 2.4 }}
+              sx={{ fontSize: 12, px: 2, minWidth: 120, lineHeight: 2.4, height: 52 }}
               aria-describedby={id1}
               onClick={handleClick}>
               {t('home.give')}
-            </Fab>
+            </Button>
           </Stack>
         </Box>
       </Box>

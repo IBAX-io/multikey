@@ -179,7 +179,7 @@ export const Component = () => {
             justifyContent="flex-end"
             sx={{ display: { xs: 'none', sm: 'none', md: 'flex' } }}>
             <Button
-              sx={{ minWidth: 120, lineHeight: 2.4 }}
+              sx={{ minWidth: 120, lineHeight: 2.4, height: 52 }}
               variant="filled"
               to={`/receive/${tokenSymbol}/${id}/${keyId}`}
               component={Link}
@@ -187,7 +187,7 @@ export const Component = () => {
               {t('home.receive')}
             </Button>
             <Button
-              sx={{ minWidth: 120, lineHeight: 2.4 }}
+              sx={{ minWidth: 120, lineHeight: 2.4, height: 52 }}
               variant="filled"
               to={`/transfer/${tokenSymbol}/${id}/${keyId}`}
               component={Link}

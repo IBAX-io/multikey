@@ -453,13 +453,19 @@ export const Component = () => {
               mt: 5,
               textAlign: 'center'
             }}>
-            <Fab variant="extended" onClick={handleLast} color="primary">
+            <Button
+              sx={{ minWidth: 150, lineHeight: 2.4 }}
+              variant="outlined" onClick={handleLast}
+              color="primary" size="large">
               {t('login.previous')}
-            </Fab>
+            </Button>
             <Box>
-              <Fab variant="extended" onClick={handleNewBuilt} color="primary" disabled={!isAmount}>
+              <Button
+                sx={{ minWidth: 150, lineHeight: 2.4 }}
+                variant="filled" onClick={handleNewBuilt}
+                color="primary" size="large" disabled={!isAmount}>
                 {t('home.build')}
-              </Fab>
+              </Button>
               {isAmount ? (
                 ''
               ) : (

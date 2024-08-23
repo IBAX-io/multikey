@@ -238,28 +238,32 @@ const Home = () => {
               }}>
               {ecoList && ecoList.length ? (
                 <>
-                  <Fab
-                    sx={{ minWidth: 120 }}
+                  <Button
+                    sx={{ minWidth: 150, lineHeight: 2.4, height: 52 }}
                     color="primary"
                     to={`/receive/${ecoList[0].tokenSymbol}/${ecoList[0].id}/${keyId}`}
                     component={Link}
-                    variant="extended">
-                    <ReceiptIcon sx={{ mx: 1 }} />
+                    variant="filled"
+                    startIcon={<ReceiptIcon />} >
                     {t('home.receive')}
-                  </Fab>
-                  <Fab
-                    sx={{ mx: 2, minWidth: 120 }}
+                  </Button>
+                  <Button
+                    sx={{ mx: 2, minWidth: 150, lineHeight: 2.4, height: 52 }}
                     color="primary"
                     to={`/transfer/${ecoList[0].tokenSymbol}/${ecoList[0].id}/${keyId}`}
                     component={Link}
-                    variant="extended">
-                    <PaidIcon sx={{ mx: 1 }} />
+                    variant="filled"
+                    startIcon={<PaidIcon />}>
                     {t('home.transfer')}
-                  </Fab>
-                  <Fab sx={{ minWidth: 120 }} to="/create" component={Link} color="primary" variant="extended">
-                    <AccountBalanceWalletOutlinedIcon sx={{ mx: 1 }} />
+                  </Button>
+                  <Button sx={{ minWidth: 150, lineHeight: 2.4, height: 52 }}
+                    color="primary"
+                    to="/create"
+                    component={Link}
+                    variant="filled"
+                    startIcon={<AccountBalanceWalletOutlinedIcon />}>
                     {t('home.newBuilt')}
-                  </Fab>
+                  </Button>
                 </>
               ) : (
                 <SkeletonBox num={1}></SkeletonBox>
@@ -364,21 +368,21 @@ const Home = () => {
               </Typography>
             </Stack>
             <Box ml="auto">
-              <Fab color="primary" variant="extended" disabled sx={{ ml: 5, minWidth: 120 }}>
-                <ReceiptIcon sx={{ mr: 1 }} />
+              <Button color="primary" variant="filled" disabled sx={{ ml: 5, minWidth: 150, lineHeight: 2.4, height: 52 }}
+                startIcon={<ReceiptIcon />} >
                 {t('home.receive')}
-              </Fab>
-              <Fab color="primary" variant="extended" disabled sx={{ ml: 5, minWidth: 120 }}>
-                <PaidIcon sx={{ mr: 1 }} />
+              </Button>
+              <Button color="primary" variant="filled" disabled sx={{ ml: 5, minWidth: 150, lineHeight: 2.4, height: 52 }}
+                startIcon={<PaidIcon />}>
                 {t('home.transfer')}
-              </Fab>
+              </Button>
             </Box>
           </Stack>
           <Stack direction="row" justifyContent="center" alignItems="center">
             <Button
               to="/create"
               component={Link}
-              sx={{ m: '20%', fontSize: '16px', minWidth: 150, lineHeight: 2.4 }}
+              sx={{ m: '20%', fontSize: '16px', minWidth: 150, lineHeight: 2.4, height: 52 }}
               color="primary"
               variant="filled"
               size="large">
