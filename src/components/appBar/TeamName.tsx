@@ -1,24 +1,26 @@
-import { memo, UIEvent, useMemo, useRef } from 'react';
-import { Autocomplete, TextField, ListItem, Typography, ListItemText } from '@mui/material';
-import { useAppSelector, useAppDispatch } from '@/store/hooks';
-import {
-  selectAllTeam,
-  getSelectTeam,
-  selectTeamIds,
-  teamUpdateMany,
-  teamUpdateOne,
-  teamSelectData,
-  loadStatus,
-  count,
-  addTeamSearch
-} from '@/store/team';
 import { TeamItem, TeamParams } from '@/dataType';
 import util from '@/plugins/util';
+import { useAppDispatch, useAppSelector } from '@/store/hooks';
+import {
+  addTeamSearch,
+  count,
+  getSelectTeam,
+  loadStatus,
+  selectAllTeam,
+  selectTeamIds,
+  teamSelectData,
+  teamUpdateMany,
+  teamUpdateOne
+} from '@/store/team';
 import CheckIcon from '@mui/icons-material/Check';
+import { Autocomplete, InputAdornment, ListItem, ListItemText, TextField, Typography } from '@mui/material';
+import { memo, UIEvent, useMemo, useRef } from 'react';
 //import { useNavigate } from 'react-router-dom';
+import Diversity3Icon from '@mui/icons-material/Diversity3';
 const win = window;
 const TeamName = ({ close }: { close: () => void }) => {
   const current = util.getCache('current');
+  console.log('🚀 ~ file: TeamName.tsx:22 ~ TeamName ~ current:', current);
   //const navigate = useNavigate();
   const teamAllTeam = useAppSelector(selectAllTeam) as TeamItem[];
   const teamSelect: TeamItem = useAppSelector(getSelectTeam);
@@ -118,6 +120,11 @@ const TeamName = ({ close }: { close: () => void }) => {
             {...params}
             InputProps={{
               ...params.InputProps,
+              startAdornment: (
+                <InputAdornment position="start">
+                  <Diversity3Icon color="primary" />
+                </InputAdornment>
+              ),
               type: 'search'
             }}
           />
