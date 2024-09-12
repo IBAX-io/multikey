@@ -234,6 +234,7 @@ const ImportWallet = () => {
                 color: (theme) => theme.palette.container.contrastText
               }}>
               <BootsTextareaAutosize
+                style={{ resize: 'none' }}
                 minRows={6}
                 maxRows={6}
                 className="w-full p-3 border"
