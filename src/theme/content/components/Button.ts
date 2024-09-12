@@ -1,4 +1,4 @@
-import type { Theme, ComponentsProps, ComponentsOverrides, ComponentsVariants } from '@mui/material';
+import type { ComponentsOverrides, ComponentsProps, ComponentsVariants, Theme } from '@mui/material';
 import { alpha } from '@mui/material';
 import { StateLayer, getStateLayerColor } from '../utils/getStayeLayerColor';
 
@@ -140,15 +140,15 @@ export const getButton = (theme: Theme): ButtonType => {
               color: alpha(palette.onSurface.main, 0.38)
             },
             '&:hover': {
-              backgroundColor: getStateLayerColor(StateLayer.Hover, palette.surface.main, palette.primary.main),
+              backgroundColor: palette.onBody.main,
               borderColor: getStateLayerColor(StateLayer.Hover, palette.outline.main, palette.primary.main)
             },
             '&:focus': {
-              backgroundColor: getStateLayerColor(StateLayer.Focus, palette.surface.main, palette.primary.main),
+              backgroundColor: palette.onBody.main,
               borderColor: getStateLayerColor(StateLayer.Focus, palette.primary.main, palette.primary.main)
             },
             '&:active': {
-              backgroundColor: getStateLayerColor(StateLayer.Press, palette.surface.main, palette.primary.main),
+              backgroundColor: palette.onBody.main,
               borderColor: getStateLayerColor(StateLayer.Press, palette.outline.main, palette.primary.main)
             }
           }
