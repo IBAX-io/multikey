@@ -1,20 +1,21 @@
-import { Typography, Box, Stack, Tooltip, List, ListItem, Button } from '@mui/material';
 import MainContainer from '@/components/cantainer/MainContainer';
-import { useTranslation } from 'react-i18next';
-import { useSearchParams, Link, useNavigate } from 'react-router-dom';
-import { useAppDispatch, useAppSelector } from '@/store/hooks';
-import { getSelectTeam } from '@/store/team';
-import { TeamItem, AffirmParams, DetailsItem, DetailsList, CountParams } from '@/dataType';
-import { useCallback, useMemo, useState, useEffect } from 'react';
-import util from '@/plugins/util';
+import SkeletonBox from '@/components/cantainer/SkeletonBox';
+import PasswordBox from '@/components/password/PasswordBox';
+import { AffirmParams, CountParams, DetailsItem, DetailsList, TeamItem } from '@/dataType';
+import { useDebounce } from '@/hooks';
+import { handleSecondMinute, handleSecondUTC } from '@/plugins/day';
 import { handleMessageDetails } from '@/plugins/request/api';
-import { handleSecondUTC, handleSecondMinute } from '@/plugins/day';
+import util from '@/plugins/util';
+import { useAppDispatch, useAppSelector } from '@/store/hooks';
+import { initMessageSearch } from '@/store/message';
+import { getSelectTeam } from '@/store/team';
+import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
 import CheckIcon from '@mui/icons-material/Check';
 import CloseIcon from '@mui/icons-material/Close';
-import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
-import PasswordBox from '@/components/password/PasswordBox';
-import SkeletonBox from '@/components/cantainer/SkeletonBox';
-import { initMessageSearch } from '@/store/message';
+import { Box, Button, List, ListItem, Stack, Tooltip, Typography } from '@mui/material';
+import { useCallback, useEffect, useMemo, useState } from 'react';
+import { useTranslation } from 'react-i18next';
+import { Link, useNavigate, useSearchParams } from 'react-router-dom';
 
 export const Component = () => {
   const { t } = useTranslation();
@@ -101,20 +102,76 @@ export const Component = () => {
     handleDetailsList();
   }, [handleDetailsList]);
   const handleRejected = () => {
-    setIsCheck(true);
-    setContractParams({
-      contractName: 'MultiSignConfirm',
-      ProposalId: Number(id),
-      Status: 'rejected'
-    });
+    try {
+      const typeData = util.getCacheToken('type') as string;
+      const contractParams = {
+        contractName: 'MultiSignConfirm',
+        ProposalId: Number(id),
+        Status: 'rejected'
+      };
+      if (typeData === 'jutkey_connect') {
+        const currNetwork = util.currNetwork();
+        const { walletId } = currNetwork;
+        const editorExtensionId = walletId;
+        const { host, origin } = document.location;
+        const pageInfo = { host, origin };
+        chrome.runtime.sendMessage(
+          editorExtensionId,
+          {
+            path: 'notice/contract',
+            params: { pageInfo, contractParams }
+          },
+          (response: any) => {
+            console.log('Received message from wallet', response);
+          }
+        );
+      } else {
+        setIsCheck(true);
+        setContractParams({
+          contractName: 'MultiSignConfirm',
+          ProposalId: Number(id),
+          Status: 'rejected'
+        });
+      }
+    } catch (error) {
+      console.log('🚀 ~ file: Details.tsx:136 ~ handleRejected ~ error:', error);
+    }
   };
   const handleApprove = () => {
-    setIsCheck(true);
-    setContractParams({
-      contractName: 'MultiSignConfirm',
-      ProposalId: Number(id),
-      Status: 'approved'
-    });
+    try {
+      const typeData = util.getCacheToken('type') as string;
+      const contractParams = {
+        contractName: 'MultiSignConfirm',
+        ProposalId: Number(id),
+        Status: 'approved'
+      };
+      if (typeData === 'jutkey_connect') {
+        const currNetwork = util.currNetwork();
+        const { walletId } = currNetwork;
+        const editorExtensionId = walletId;
+        const { host, origin } = document.location;
+        const pageInfo = { host, origin };
+        chrome.runtime.sendMessage(
+          editorExtensionId,
+          {
+            path: 'notice/contract',
+            params: { pageInfo, contractParams }
+          },
+          (response: any) => {
+            console.log('Received message from wallet', response);
+          }
+        );
+      } else {
+        setIsCheck(true);
+        setContractParams({
+          contractName: 'MultiSignConfirm',
+          ProposalId: Number(id),
+          Status: 'approved'
+        });
+      }
+    } catch (error) {
+      console.log('🚀 ~ file: Details.tsx:144 ~ handleApprove ~ error:', error);
+    }
   };
   const handleClose = () => {
     setIsCheck(false);
@@ -124,6 +181,19 @@ export const Component = () => {
     navigate('/message', { replace: true });
     await dispatch(initMessageSearch(countParams));
   };
+  const handleDeRejected = useDebounce(handleRejected);
+  const handleDeApprove = useDebounce(handleApprove);
+  useEffect(() => {
+    document.addEventListener('jutkeyEvent', async ({ detail }: any) => {
+      console.log('🚀 ~ file: Details.tsx:188 ~ document.addEventListener ~ detail:', detail);
+      const type = util.getCacheToken('type');
+      console.log('🚀 ~ file: MainAppBar.tsx:241 ~ document.addEventListener ~ type:', type);
+      if (detail.type === 'jutkey_contract') {
+        //router.push('/pool/list');
+        handleConfirm();
+      }
+    });
+  });
   return (
     <MainContainer>
       <Typography variant="h5" mb={3}>
@@ -248,14 +318,14 @@ export const Component = () => {
                                   justifyContent="space-between">
                                   <Button
                                     variant="filled"
-                                    onClick={handleApprove}
+                                    onClick={handleDeApprove}
                                     sx={{ minWidth: 100, lineHeight: 2.4, ml: 2 }}
                                     size="large">
                                     {t('home.approved')}
                                   </Button>
                                   <Button
                                     variant="outlined"
-                                    onClick={handleRejected}
+                                    onClick={handleDeRejected}
                                     sx={{ minWidth: 100, lineHeight: 2.4, ml: 2 }}
                                     size="large">
                                     {t('home.rejected')}
@@ -322,12 +392,16 @@ export const Component = () => {
                                 ml={0.5}
                                 display="inline-flex"
                                 justifyContent="space-between">
-                                <Button variant="filled" onClick={handleApprove} sx={{ minWidth: 120, lineHeight: 2.4 }} size="large">
+                                <Button
+                                  variant="filled"
+                                  onClick={handleDeApprove}
+                                  sx={{ minWidth: 120, lineHeight: 2.4 }}
+                                  size="large">
                                   {t('home.approved')}
                                 </Button>
                                 <Button
                                   variant="outlined"
-                                  onClick={handleRejected}
+                                  onClick={handleDeRejected}
                                   sx={{ minWidth: 120, lineHeight: 2.4, ml: 1 }}
                                   size="large">
                                   {t('home.rejected')}
