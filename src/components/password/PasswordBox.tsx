@@ -1,7 +1,18 @@
 import LoadMask from '@/components/loading/LoadMask';
 import contract from '@/plugins/lib';
 import util from '@/plugins/util';
-import { Alert, Box, Button, DialogActions, FormControl, Modal, Snackbar, TextField, Typography } from '@mui/material';
+import {
+  Alert,
+  Box,
+  Button,
+  FormControl,
+  Modal,
+  Snackbar,
+  Stack,
+  TextField,
+  Typography,
+  useTheme
+} from '@mui/material';
 import { ChangeEvent, useCallback, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 
@@ -16,6 +27,7 @@ const PasswordBox = ({
   close: () => void;
   confirm: () => void;
 }) => {
+  const theme = useTheme();
   const { t } = useTranslation();
   const current = util.getCache('current');
   const [type, setType] = useState('text');
@@ -64,33 +76,39 @@ const PasswordBox = ({
     confirm();
   };
   const handleConfirm = () => {
-    const boo = handleCheckPassword(password);
-    if (boo) {
-      setLoading(true);
-      contract.tokensSend(params, (res: any, status: string) => {
-        if (status === 'error') {
+    try {
+      const boo = handleCheckPassword(password);
+      if (boo) {
+        setLoading(true);
+        contract.tokensSend(params, (res: any, status: string) => {
+          if (status === 'error') {
+            console.log(res);
+            setIsOpen(true);
+            setSeverity('error');
+            setTip(res.errmsg.error);
+          } else if (status === 'loading') {
+            setIsOpen(true);
+            setSeverity('warning');
+            setTip(t('user.chain'));
+          } else if (status === 'success') {
+            setIsOpen(true);
+            setSeverity('success');
+            setTip(t('user.dosuccess'));
+            setPassword('');
+            setType('text');
+          } else {
+            setIsOpen(true);
+            setSeverity('error');
+            setTip(res.msg);
+          }
           console.log(res);
-          setIsOpen(true);
-          setSeverity('error');
-          setTip(res.errmsg.error);
-        } else if (status === 'loading') {
-          setIsOpen(true);
-          setSeverity('warning');
-          setTip(t('user.chain'));
-        } else if (status === 'success') {
-          setIsOpen(true);
-          setSeverity('success');
-          setTip(t('user.dosuccess'));
-          setPassword('');
-          setType('text');
-        } else {
-          setIsOpen(true);
-          setSeverity('error');
-          setTip(res.msg);
-        }
-        console.log(res);
-        setLoading(false);
-      });
+          setLoading(false);
+        });
+      }
+    } catch (error) {
+      setIsOpen(true);
+      setLoading(false);
+      setTip('Network failed');
     }
   };
   return (
@@ -109,7 +127,7 @@ const PasswordBox = ({
             width: { xs: '90%', md: '50%', lg: '30%', xl: '20%' },
             minWidth: 460,
             maxWidth: 600,
-            bgcolor: 'background.paper',
+            bgcolor: theme.palette.container.main,
             boxShadow: 24,
             p: 2,
             borderRadius: 2
@@ -134,14 +152,14 @@ const PasswordBox = ({
               helperText={passwordError ? passwordErrorText : ''}
             />
           </FormControl>
-          <DialogActions>
-            <Button variant="outlined" sx={{ minWidth: 150, lineHeight: 2.4 }} onClick={handleClose} size="large">
+          <Stack direction="row" justifyContent="space-around" alignItems="center">
+            <Button variant="outlined" onClick={handleClose} size="large">
               {t('login.cancel')}
             </Button>
-            <Button variant="filled" sx={{ minWidth: 150, lineHeight: 2.4 }} onClick={handleConfirm} size="large">
+            <Button variant="filled" onClick={handleConfirm} size="large">
               {t('login.confirm')}
             </Button>
-          </DialogActions>
+          </Stack>
         </Box>
       </Modal>
       <Snackbar
