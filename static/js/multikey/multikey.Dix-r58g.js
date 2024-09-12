@@ -1,0 +1,1 @@
+import{r}from"./multikey.D1_AnZj2.js";const c=(t,u=1e3)=>{const{current:e}=r.useRef({fn:t,timer:null});return r.useEffect(()=>{e.fn=t},[e,t]),r.useCallback(s=>{e.timer&&clearTimeout(e.timer),e.timer=setTimeout(()=>{e.fn(s)},u)},[e,u])};export{c as u};
