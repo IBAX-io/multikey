@@ -108,7 +108,7 @@ declare module '@mui/material/styles/createPalette' {
 
 export const getMUIPalette = (themeMode: ThemeMode, themescheme: ThemeScheme): ThemeOptions => {
   const scheme = themescheme[themeMode];
-  console.log('🚀 ~ file: getMUIPalette.ts:108 ~ getMUIPalette ~ scheme:', scheme);
+  // console.log('🚀 ~ file: getMUIPalette.ts:108 ~ getMUIPalette ~ scheme:', scheme);
   return {
     palette: {
       themeMode,
