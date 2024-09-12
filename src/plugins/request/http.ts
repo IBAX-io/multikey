@@ -28,20 +28,26 @@ service.interceptors.request.use(
 // Add response interceptor
 service.interceptors.response.use(
   (response: AxiosResponse) => {
-    console.log(response.data.error);
-    if (response.data.error) {
-      window.location.href = '/login';
-      util.removeCacheToken('token');
-    }
     return response.status === 200 ? Promise.resolve(response.data) : Promise.reject(response);
   },
   (error) => {
-    const response = error.response || {};
-    if (response.status === 401 || response.status === 403) {
-      // errorHandle(response.status, response.data.message);
-      return Promise.reject(new Error(error.response));
+    console.log('🚀 ~ file: http.ts:34 ~ error:', error);
+    console.log(error.code === 'ERR_NETWORK');
+    if (error.response) {
+      const status = error.response.status;
+      if (status === 401 || status === 403) {
+        window.location.href = '/login';
+        util.removeCacheToken('token');
+      } else if (status === 500) {
+        console.error('Internal server error, please try again later...');
+      } else {
+        console.error(`Error: ${status}, ${error.response.data.message}`);
+      }
+    } else if (error.code === 'ERR_NETWORK') {
+      //  window.location.href = '/error';
+      //  util.removeCacheToken('token');
     }
-    console.log('The link has been broken');
+    return Promise.reject(error);
   }
 );
 // console.log(service);
