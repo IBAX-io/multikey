@@ -1,17 +1,16 @@
 import MainContainer from '@/components/cantainer/MainContainer';
 import PasswordBox from '@/components/password/PasswordBox';
-import { BalanceParams, HelperType, TeamItem, TeamParams } from '@/dataType';
-import { handleEcoBalance } from '@/plugins/request/api';
+import { BalanceType, HelperType, TeamParams } from '@/dataType';
 import util from '@/plugins/util';
 import { useAppDispatch, useAppSelector } from '@/store/hooks';
-import { getSelectTeam, initTeamSearch, teamSelectData, teamUpdateOne } from '@/store/team';
+import { getBalance } from '@/store/message';
+import { initTeamSearch, teamSelectData, teamUpdateOne } from '@/store/team';
 import Add from '@mui/icons-material/Add';
 import HelpOutlineIcon from '@mui/icons-material/HelpOutline';
 import {
   Alert,
   Box,
   Button,
-  Fab,
   FormControl,
   FormHelperText,
   OutlinedInput,
@@ -29,6 +28,7 @@ export const Component = () => {
   const { t } = useTranslation();
   const navigate = useNavigate();
   const [name, setName] = useState('');
+  const balance: BalanceType | null = useAppSelector(getBalance);
   const [num, setNum] = useState<string | number>(2);
   const [arrAddress, setArrAddress] = useState<string[]>([current.account, '', '']);
   const [nameHelper, setNameHelper] = useState<HelperType | null>(null);
@@ -38,34 +38,18 @@ export const Component = () => {
   const [tip, setTip] = useState('');
   const [isCheck, setIsCheck] = useState(false);
   const [isContinue, setIsContinue] = useState(true);
-  const teamSelect: TeamItem = useAppSelector(getSelectTeam);
   const [isAmount, setIsAmount] = useState(true);
   const dispatch = useAppDispatch();
-  const balanceParams = useMemo(() => {
-    const params: BalanceParams = [
-      {
-        jsonrpc: '2.0',
-        method: 'ibax.getBalance',
-        id: 1,
-        params: [teamSelect.wallet, 1]
-      }
-    ];
-    return params;
-  }, [teamSelect.wallet]);
-  const handleBalanceParams = useCallback(async () => {
-    if (teamSelect.wallet) {
-      const res = await handleEcoBalance(balanceParams);
-
-      if (res) {
-        const num = util.formatUnits(res[0].result.amount, res[0].result.digits);
-        console.log('🚀 ~ file: CreateTeam.tsx:61 ~ handleBalanceParams ~ num:', num);
-        setIsAmount(util.greaterThanZero(num, 0));
-      }
+  const handleBalance = useCallback(async () => {
+    if (balance) {
+      const num = util.formatUnits(balance.amount, balance.digits);
+      console.log('🚀 ~ file: CreateTeam.tsx:61 ~ handleBalanceParams ~ num:', num);
+      setIsAmount(util.greaterThanZero(num, 0.1));
     }
-  }, [balanceParams, teamSelect.wallet]);
+  }, [balance]);
   useEffect(() => {
-    handleBalanceParams();
-  }, [handleBalanceParams]);
+    handleBalance();
+  }, [handleBalance]);
   const handleVerifyName = useCallback(
     (value: string) => {
       const str = value.trim();
@@ -246,7 +230,7 @@ export const Component = () => {
       id: Date.now(),
       params: [
         {
-          name: '@1wallets',
+          name: '@1multi_sign_wallets',
           where: `{'owners -> ${current.account}': 1}`,
           order: {
             id: 1
@@ -280,11 +264,52 @@ export const Component = () => {
     setIsContinue(true);
   };
   const handleNewBuilt = () => {
-    setIsCheck(true);
+    // 1722-1562-0832-3741-0372
+    // 0744-8373-6364-2908-2969
+    try {
+      const type = util.getCacheToken('type') as string;
+      if (type === 'jutkey_connect') {
+        const currNetwork = util.currNetwork();
+        const { walletId } = currNetwork;
+        const editorExtensionId = walletId;
+        const { host, origin } = document.location;
+        const pageInfo = { host, origin };
+        const contractParams = {
+          contractName: 'MultiSignCreateWallet',
+          TeamName: name,
+          Owners: arrAddress,
+          Threshold: num
+          //  ecosystem: networkId
+        };
+        chrome.runtime.sendMessage(
+          editorExtensionId,
+          {
+            path: 'notice/contract',
+            params: { pageInfo, contractParams }
+          },
+          (response: any) => {
+            console.log('Received message from wallet', response);
+          }
+        );
+      } else {
+        setIsCheck(true);
+      }
+    } catch (error) {
+      console.log('🚀 ~ file: CreateTeam.tsx:306 ~ handleLast ~ error:', error);
+    }
   };
   const handleCancel = () => {
     navigate('/', { replace: true });
   };
+  useEffect(() => {
+    document.addEventListener('jutkeyEvent', async ({ detail }: any) => {
+      const type = util.getCacheToken('type');
+      console.log('🚀 ~ file: MainAppBar.tsx:241 ~ document.addEventListener ~ type:', type);
+      if (detail.type === 'jutkey_contract') {
+        handleConfirm();
+      }
+    });
+  });
   return (
     <MainContainer>
       {isContinue ? (
@@ -292,7 +317,7 @@ export const Component = () => {
           <Typography variant="h5" mb={2}>
             {t('home.setting')}
           </Typography>
-          <Typography variant="body1" mb={3}>
+          <Typography variant="body1" mb={3} sx={{ width: { md: '40%', sm: '100%' } }}>
             {t('home.des')}
           </Typography>
           <form autoComplete="off">
@@ -455,15 +480,20 @@ export const Component = () => {
             }}>
             <Button
               sx={{ minWidth: 150, lineHeight: 2.4 }}
-              variant="outlined" onClick={handleLast}
-              color="primary" size="large">
+              variant="outlined"
+              onClick={handleLast}
+              color="primary"
+              size="large">
               {t('login.previous')}
             </Button>
             <Box>
               <Button
                 sx={{ minWidth: 150, lineHeight: 2.4 }}
-                variant="filled" onClick={handleNewBuilt}
-                color="primary" size="large" disabled={!isAmount}>
+                variant="filled"
+                onClick={handleNewBuilt}
+                color="primary"
+                size="large"
+                disabled={!isAmount}>
                 {t('home.build')}
               </Button>
               {isAmount ? (
