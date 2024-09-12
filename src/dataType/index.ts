@@ -1,6 +1,6 @@
-import { Int64BE } from 'int64-buffer';
 import { ISchema } from '@/plugins/lib/field/schema';
-export type env = 'test' | 'production' | 'development';
+import { Int64BE } from 'int64-buffer';
+export type env = 'test' | 'testnet' | 'production' | 'development';
 
 export interface IswapData<T> {
   code: number;
@@ -282,6 +282,7 @@ export interface BalanceType {
   utxo: string;
   token_symbol: string;
   assets?: string;
+  token_name: string;
 }
 
 export interface BalanceItem {
