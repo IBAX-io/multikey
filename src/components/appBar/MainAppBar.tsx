@@ -1,8 +1,9 @@
-import { AccountItem, AccountList, LoginData, TeamParams, UidData } from '@/dataType';
+import { AccountItem, AccountList, BalanceParams, BalanceType, LoginData, TeamParams, UidData } from '@/dataType';
 import keyring from '@/plugins/keyring';
 import { handleGetuid, handlePostLogin } from '@/plugins/request/api';
 import util from '@/plugins/util';
 import { useAppDispatch, useAppSelector } from '@/store/hooks';
+import { getBalance, initBalance } from '@/store/message';
 import { initTeamSearch, resetTeamSelect, selectTeamIds, teamSelectData, teamUpdateOne } from '@/store/team';
 import CheckIcon from '@mui/icons-material/Check';
 import ContentCopyIcon from '@mui/icons-material/ContentCopy';
@@ -40,6 +41,7 @@ const win = window;
 const MainAppBar: FC<HeaderProps> = ({ onDrawerToggle, window }) => {
   const { t } = useTranslation();
   const dispatch = useAppDispatch();
+  const balance: BalanceType | null = useAppSelector(getBalance);
   const [avatarEl, setAvatarEl] = useState<null | HTMLElement>(null);
   const [isOpen, setIsOpen] = useState(false);
   // const current = util.getCache('current');
@@ -69,56 +71,54 @@ const MainAppBar: FC<HeaderProps> = ({ onDrawerToggle, window }) => {
     threshold: 0,
     target: window ? window() : undefined
   });
-
-  /*   const handleExit = () => {
-    util.removeCacheToken('token');
-    util.removeCache('teamSelect');
-    win.location.href = '/login';
-  }; */
   const teamIds = useAppSelector(selectTeamIds);
   const teamParams = useMemo(() => {
-    const params: TeamParams = {
-      jsonrpc: '2.0',
-      method: 'ibax.getList',
-      id: Date.now(),
-      params: [
-        {
-          name: '@1multi_sign_wallets',
-          where: `{'owners -> ${current!.account}': 1}`,
-          order: {
-            id: 1
-          },
-          offset: 0,
-          limit: 10
-        }
-      ]
-    };
-    return params;
+    if (current) {
+      const params: TeamParams = {
+        jsonrpc: '2.0',
+        method: 'ibax.getList',
+        id: Date.now(),
+        params: [
+          {
+            name: '@1multi_sign_wallets',
+            where: `{'owners -> ${current.account}': 1}`,
+            order: {
+              id: 1
+            },
+            offset: 0,
+            limit: 10
+          }
+        ]
+      };
+      return params;
+    }
   }, [current]);
   const handleAsyncThunk = useCallback(async () => {
-    const teamSeacrch = await dispatch(initTeamSearch(teamParams));
-    if (initTeamSearch.fulfilled.match(teamSeacrch)) {
-      const list = teamSeacrch.payload.list ? teamSeacrch.payload.list : [];
-      if (list.length) {
-        const teamSelect = util.getCache('teamSelect');
-        console.log('🚀 ~ file: MainAppBar.tsx:94 ~ handleAsyncThunk ~ teamSelect:', teamSelect);
-        const teamFirst = teamSeacrch.payload.list[0];
-        if (teamSelect) {
-          dispatch(teamSelectData(teamSelect));
-          dispatch(
-            teamUpdateOne({
-              id: teamSelect.id,
-              changes: { isSelect: true } as any
-            })
-          );
-        } else {
-          dispatch(teamSelectData(teamFirst));
-          dispatch(
-            teamUpdateOne({
-              id: teamFirst.id,
-              changes: { isSelect: true } as any
-            })
-          );
+    if (teamParams) {
+      const teamSeacrch = await dispatch(initTeamSearch(teamParams));
+      if (initTeamSearch.fulfilled.match(teamSeacrch)) {
+        const list = teamSeacrch.payload.list ? teamSeacrch.payload.list : [];
+        if (list.length) {
+          const teamSelect = util.getCache('teamSelect');
+          console.log('🚀 ~ file: MainAppBar.tsx:94 ~ handleAsyncThunk ~ teamSelect:', teamSelect);
+          const teamFirst = teamSeacrch.payload.list[0];
+          if (teamSelect) {
+            dispatch(teamSelectData(teamSelect));
+            dispatch(
+              teamUpdateOne({
+                id: teamSelect.id,
+                changes: { isSelect: true } as any
+              })
+            );
+          } else {
+            dispatch(teamSelectData(teamFirst));
+            dispatch(
+              teamUpdateOne({
+                id: teamFirst.id,
+                changes: { isSelect: true } as any
+              })
+            );
+          }
         }
       }
     }
@@ -127,7 +127,27 @@ const MainAppBar: FC<HeaderProps> = ({ onDrawerToggle, window }) => {
     handleAsyncThunk();
     dispatch(resetTeamSelect());
   }, [dispatch, handleAsyncThunk]);
-
+  const balanceParams = useMemo(() => {
+    if (current && current.account) {
+      const params: BalanceParams = [
+        {
+          jsonrpc: '2.0',
+          method: 'ibax.getBalance',
+          id: 1,
+          params: [current.account, 1]
+        }
+      ];
+      return params;
+    }
+  }, [current]);
+  const handleGetBalance = useCallback(async () => {
+    if (balanceParams) {
+      await dispatch(initBalance(balanceParams));
+    }
+  }, [balanceParams, dispatch]);
+  useEffect(() => {
+    handleGetBalance();
+  }, [dispatch, handleGetBalance]);
   const handleBarClose = (_event: React.SyntheticEvent | Event, reason?: string) => {
     if (reason === 'clickaway') {
       return;
@@ -194,6 +214,7 @@ const MainAppBar: FC<HeaderProps> = ({ onDrawerToggle, window }) => {
   const handleExit = () => {
     util.removeCacheToken('token');
     util.removeCache('teamSelect');
+    util.removeCacheToken('type');
     if (current?.mnemonic) {
       const accountData = util.getCache(`${current.mnemonic}-${current.selectId}`) || [];
       const arr = accountData.map((item: AccountItem) => {
@@ -208,6 +229,33 @@ const MainAppBar: FC<HeaderProps> = ({ onDrawerToggle, window }) => {
     }
     win.location.href = '/login';
   };
+  useEffect(() => {
+    document.addEventListener('jutkeyEvent', async ({ detail }: any) => {
+      console.log('🚀 ~ file: HelloWorld.vue:64 ~ window.addEventListener ~ detail:', detail);
+      const type = util.getCacheToken('type');
+      console.log('🚀 ~ file: MainAppBar.tsx:241 ~ document.addEventListener ~ type:', type);
+      if (type === 'jutkey_connect') {
+        if (detail.type === 'jutkey_connect') {
+          const { current } = detail;
+          current.isShow = true;
+          current.isLogin = true;
+          current.id = util.uuid();
+          util.setCache('current', current);
+          util.setCacheToken('token', current.token);
+          util.setCacheToken('type', detail.type);
+          util.removeCache('teamSelect');
+          location.href = '/';
+        }
+        if (detail.type === 'jutkey_break') {
+          util.removeCache('teamSelect');
+          util.removeCache('current');
+          util.removeCacheToken('token');
+          util.removeCacheToken('type');
+          location.href = '/login';
+        }
+      }
+    });
+  });
   return (
     <>
       <AppBar position="sticky" elevation={trigger ? 2 : 0}>
@@ -234,19 +282,57 @@ const MainAppBar: FC<HeaderProps> = ({ onDrawerToggle, window }) => {
               <Grid item>
                 {/*  <Tooltip title="@ZakAlbert94"> */}
                 <IconButton color="inherit" sx={{ p: 0.5 }} onClick={handleAvatarMenu}>
-                  <Avatar
-                    alt="My Avatar"
-                    sx={{
-                      width: 30,
-                      height: 30,
-                      fontSize: 14,
-                      bgcolor: 'primary.main',
-                      color: 'onPrimary.main'
-                    }}
-                    src={`${currNetwork.rpc}/api/v2//avatar/1/${current!.account}`}>
+                  {current ? (
+                    <Avatar
+                      alt="My Avatar"
+                      sx={{
+                        width: 30,
+                        height: 30,
+                        fontSize: 14,
+                        bgcolor: 'primary.main',
+                        color: 'onPrimary.main'
+                      }}
+                      src={`${currNetwork.rpc}/api/v2//avatar/1/${current.account}`}>
+                      <Avatar src="/profile.png" />
+                    </Avatar>
+                  ) : (
                     <Avatar src="/profile.png" />
-                  </Avatar>
+                  )}
                 </IconButton>
+              </Grid>
+              <Grid item mx={2}>
+                {current ? (
+                  <Stack direction="row" alignItems="center">
+                    <Typography variant="body2" component="span">
+                      {current.account}
+                    </Typography>
+                    <IconButton
+                      color="primary"
+                      aria-label="ContentCopyIcon"
+                      onClick={(event: { preventDefault: () => void; stopPropagation: () => void }) => {
+                        event.preventDefault();
+                        event.stopPropagation();
+                        handleNavigator(current.account!);
+                      }}
+                      size="medium">
+                      <ContentCopyIcon fontSize="small" />
+                    </IconButton>
+                  </Stack>
+                ) : (
+                  ''
+                )}
+                {balance ? (
+                  <Stack direction="row" alignItems="center">
+                    <Typography variant="body2" component="span">
+                      {util.formatFixed(balance.amount, balance.digits)}
+                    </Typography>
+                    <Typography variant="body2" component="span" ml={1}>
+                      {balance.token_symbol}
+                    </Typography>
+                  </Stack>
+                ) : (
+                  ''
+                )}
               </Grid>
             </Grid>
           </Grid>
@@ -265,25 +351,6 @@ const MainAppBar: FC<HeaderProps> = ({ onDrawerToggle, window }) => {
                 my: 2
               }
             }}>
-            {/* <MenuItem>
-                  <Box>
-                    <Stack direction="row" alignItems="center">
-                      <Typography variant="body2" mr={1}>
-                        {t('login.accountName')}:
-                      </Typography>
-                      <Typography variant="body2">{current!.name}</Typography>
-                    </Stack>
-                    <Stack direction="row" alignItems="center">
-                      <Typography variant="body2" mr={1}>
-                        {t('login.address')}:
-                      </Typography>
-                      <Typography variant="body2">{current!.account}</Typography>
-                      <IconButton aria-label="ContentCopyIcon" onClick={handleNavigator} size="medium">
-                        <ContentCopyIcon fontSize="medium" />
-                      </IconButton>
-                    </Stack>
-                  </Box>
-                </MenuItem> */}
             {accountList
               ? accountList.map((item: AccountItem) => {
                   return (
@@ -318,6 +385,7 @@ const MainAppBar: FC<HeaderProps> = ({ onDrawerToggle, window }) => {
                               </Typography>
                               <Typography variant="body2">{item.account}</Typography>
                               <IconButton
+                                color="primary"
                                 aria-label="ContentCopyIcon"
                                 onClick={(event: { preventDefault: () => void; stopPropagation: () => void }) => {
                                   //
@@ -326,7 +394,7 @@ const MainAppBar: FC<HeaderProps> = ({ onDrawerToggle, window }) => {
                                   handleNavigator(item.account!);
                                 }}
                                 size="medium">
-                                <ContentCopyIcon />
+                                <ContentCopyIcon fontSize="small" />
                               </IconButton>
                             </Stack>
                           </Box>
@@ -350,10 +418,10 @@ const MainAppBar: FC<HeaderProps> = ({ onDrawerToggle, window }) => {
                     </>
                   );
                 })
-              : ''}
+              : '000'}
             <MenuItem sx={{ display: 'flex', justifyContent: 'center', mt: 3 }}>
               <Button variant="filled" sx={{ minWidth: 150, lineHeight: 2.4 }} onClick={handleExit} size="large">
-                {t('exit')}
+                {t('nav.exit')}
               </Button>
             </MenuItem>
           </Menu>
