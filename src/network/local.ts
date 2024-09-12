@@ -6,7 +6,16 @@ const network = {
     networkId: 7,
     api: 'https://scan.ibax.network:8800',
     blockexplorer: 'https://scan.ibax.network',
-    ecoId: 1
+    walletId: 'hkaocejmbpidmlollaolcogbookibddl'
+  },
+  testnet: {
+    id: 10,
+    name: 'IBAX-testnet-hk1',
+    rpc: 'https://testnet-hk1.ibax.network:5079',
+    networkId: 5,
+    api: 'https://testscan.ibax.network:8800',
+    blockexplorer: 'https://testscan.ibax.network',
+    walletId: 'gcnfhkdkohkhnglefdjlobhnjfbgbech'
   },
   test: {
     id: 11,
@@ -15,7 +24,7 @@ const network = {
     networkId: 1001,
     api: 'https://node3.ibax.io:8800',
     blockexplorer: 'https://node3.ibax.io:8810',
-    ecoId: 9
+    walletId: 'gcnfhkdkohkhnglefdjlobhnjfbgbech'
   },
   development: {
     id: 12,
@@ -24,9 +33,9 @@ const network = {
     networkId: 1001,
     api: 'https://node3.ibax.io:8800',
     blockexplorer: 'https://node3.ibax.io:8810',
-    ecoId: 9
+    walletId: 'hkaocejmbpidmlollaolcogbookibddl'
   }
-  /*  development: {
+  /* development: {
     id: 12,
     name: 'Local-99',
     rpc: 'http://192.168.1.196:7079',
