@@ -1,10 +1,10 @@
-import { Box, useMediaQuery, useTheme } from '@mui/material';
+import '@/assets/sass/index.scss';
+import MainAppBar from '@/components/appBar/MainAppBar';
+import MainDrawer from '@/components/drawer/MainDrawer';
 import type { SxProps } from '@mui/material';
+import { Box, useMediaQuery, useTheme } from '@mui/material';
 import { FC, useState } from 'react';
 import { Outlet } from 'react-router-dom';
-import MainDrawer from '@/components/drawer/MainDrawer';
-import MainAppBar from '@/components/appBar/MainAppBar';
-import '@/assets/sass/index.scss';
 
 const drawerWidth = 280;
 const MainLayout: FC = () => {
@@ -34,7 +34,6 @@ const MainLayout: FC = () => {
   const handleDrawerToggle = () => {
     setMobileOpen(!mobileOpen);
   };
-
   return (
     <Box sx={rootStyles}>
       <Box component="nav" sx={navStyles}>
