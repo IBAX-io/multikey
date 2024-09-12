@@ -1,9 +1,10 @@
 import util from '@/plugins/util';
-import { Box, Button, DialogActions, FormControl, Modal, TextField, Typography } from '@mui/material';
+import { Box, Button, FormControl, Modal, Stack, TextField, Typography, useTheme } from '@mui/material';
 import { ChangeEvent, useCallback, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 
 const PasswordBox = ({ isCheck, close, confirm }: { isCheck: boolean; close: () => void; confirm: () => void }) => {
+  const theme = useTheme();
   const { t } = useTranslation();
   const [type, setType] = useState('text');
   const [password, setPassword] = useState('');
@@ -62,7 +63,7 @@ const PasswordBox = ({ isCheck, close, confirm }: { isCheck: boolean; close: () 
             top: '50%',
             left: '50%',
             transform: 'translate(-50%, -50%)',
-            bgcolor: 'background.paper',
+            bgcolor: theme.palette.container.main,
             boxShadow: 24,
             p: 2,
             borderRadius: 2,
@@ -90,14 +91,14 @@ const PasswordBox = ({ isCheck, close, confirm }: { isCheck: boolean; close: () 
               helperText={passwordError ? passwordErrorText : ''}
             />
           </FormControl>
-          <DialogActions>
-            <Button variant="outlined" sx={{ minWidth: 150, lineHeight: 2.4 }} onClick={handleClose} size="large">
+          <Stack direction="row" justifyContent="space-around" alignItems="center">
+            <Button variant="outlined" onClick={handleClose} size="large">
               {t('login.cancel')}
             </Button>
-            <Button variant="filled" sx={{ minWidth: 150, lineHeight: 2.4 }} onClick={handleConfirm} size="large">
+            <Button variant="filled" onClick={handleConfirm} size="large">
               {t('login.confirm')}
             </Button>
-          </DialogActions>
+          </Stack>
         </Box>
       </Modal>
     </>
