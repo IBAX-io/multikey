@@ -10,6 +10,7 @@ import {
   HelperType,
   TeamItem
 } from '@/dataType';
+import { useDebounce } from '@/hooks';
 import keyring from '@/plugins/keyring';
 import { handleBatchRequests, handleEcoInfo } from '@/plugins/request/api';
 import util from '@/plugins/util';
@@ -50,6 +51,17 @@ const arrType = [
   }
 ];
 const win = window;
+export type TansferParams = {
+  contractName: string;
+  To?: string;
+  iName?: string;
+  Wallet: string;
+  Amount: string;
+  digits: number;
+  Ecosystem: number;
+  Expedite: string;
+  Proposal: string;
+};
 export const Component = () => {
   const { t } = useTranslation();
   const [type, setType] = useState('address');
@@ -282,13 +294,52 @@ export const Component = () => {
     setComment(value);
   };
   const handleTransfer = () => {
-    const checkAccount = handleVerifyAccount(account);
-    const checkAmount = handleVerifyAmount(amount);
-    const checkExpedit = handleVerifyExpedit(expedit);
-    if (checkAccount && checkAmount && checkExpedit) {
-      setIsCheck(true);
+    try {
+      const checkAccount = handleVerifyAccount(account);
+      const checkAmount = handleVerifyAmount(amount);
+      const checkExpedit = handleVerifyExpedit(expedit);
+      if (checkAccount && checkAmount && checkExpedit) {
+        const typeData = util.getCacheToken('type') as string;
+        if (typeData === 'jutkey_connect') {
+          const currNetwork = util.currNetwork();
+          const { walletId } = currNetwork;
+          const editorExtensionId = walletId;
+          const { host, origin } = document.location;
+          const pageInfo = { host, origin };
+          const contractParams: TansferParams = {
+            contractName: 'MultiSignPropose',
+            Wallet: keyring.addressString(keyId!),
+            Amount: util.parseUnits(amount, Number(ecoInfo?.digits)),
+            digits: Number(ecoInfo?.digits),
+            Ecosystem: Number(id!),
+            Expedite: String(expedit) ? String(expedit) : '0',
+            Proposal: comment
+          };
+          if (type === 'address') {
+            contractParams.To = account;
+          } else {
+            contractParams.iName = account;
+          }
+
+          chrome.runtime.sendMessage(
+            editorExtensionId,
+            {
+              path: 'notice/contract',
+              params: { pageInfo, contractParams }
+            },
+            (response: any) => {
+              console.log('Received message from wallet', response);
+            }
+          );
+        } else {
+          setIsCheck(true);
+        }
+      }
+    } catch (error) {
+      console.log('🚀 ~ file: Transfer.tsx:293 ~ handleTransfer ~ error:', error);
     }
   };
+  const handleDeTransfer = useDebounce(handleTransfer);
   const handleCancel = () => {
     setAccount('');
     setAmount('');
@@ -339,6 +390,16 @@ export const Component = () => {
     };
     handleStorageEcoListData();
   }, [teamSelect.wallet]);
+  useEffect(() => {
+    document.addEventListener('jutkeyEvent', async ({ detail }: any) => {
+      const type = util.getCacheToken('type');
+      console.log('🚀 ~ file: MainAppBar.tsx:241 ~ document.addEventListener ~ type:', type);
+      if (detail.type === 'jutkey_contract') {
+        //router.push('/pool/list');
+        handleConfirm();
+      }
+    });
+  });
   return (
     <MainContainer>
       <Typography variant="h5" mb={3}>
@@ -558,7 +619,7 @@ export const Component = () => {
             </Button>
             <Button
               variant="filled"
-              onClick={handleTransfer}
+              onClick={handleDeTransfer}
               sx={{ width: '40%', minWidth: 120, lineHeight: 2.4 }}
               size="large">
               {t('login.confirm')}
