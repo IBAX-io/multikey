@@ -6,8 +6,10 @@
   "scripts": {
     "dev": "vite",
     "test": "vite --mode test",
+    "testnet": "vite --mode testnet",
     "build": "tsc && vite build && node scripts/copy-index-to-404.mjs",
     "build:test": "tsc && vite build --mode test",
+    "build:testnet": "tsc && vite build --mode  testnet && node scripts/copy-index-to-404.mjs",
     "lint": "eslint . --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
     "preview": "vite preview",
     "deploy": "gh-pages -d dist --dotfiles"
@@ -39,14 +41,17 @@
     "qrcode.react": "^3.1.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
+    "react-error-boundary": "^4.0.13",
     "react-i18next": "^14.1.0",
     "react-redux": "^9.1.0",
     "react-router-dom": "^6.22.3",
     "react-share": "^5.1.0",
+    "react-swipeable-views": "^0.14.0",
     "styled-components": "^6.1.8",
     "uuid": "^10.0.0"
   },
   "devDependencies": {
+    "@types/chrome": "^0.0.270",
     "@types/crypto-js": "^4.2.2",
     "@types/elliptic": "^6.4.18",
     "@types/file-saver": "^2.0.7",
@@ -55,6 +60,7 @@
     "@types/node": "^20.11.27",
     "@types/react": "^18.2.64",
     "@types/react-dom": "^18.2.21",
+    "@types/react-swipeable-views": "^0.13.5",
     "@types/uuid": "^9.0.8",
     "@typescript-eslint/eslint-plugin": "^7.2.0",
     "@typescript-eslint/parser": "^7.2.0",
