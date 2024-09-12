@@ -10,7 +10,7 @@ function App() {
   const { generateScheme } = useContext(ThemeSchemeContext);
   const handleGenerateScheme = useCallback(() => {
     // generateScheme('#4241f0');
-    generateScheme('#0b57d0');
+    // generateScheme('#0b57d0');
   }, [generateScheme]);
   useEffect(() => {
     handleGenerateScheme();
