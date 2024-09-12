@@ -10,7 +10,6 @@ import {
   Alert,
   Box,
   Button,
-  Fab,
   FormControl,
   FormHelperText,
   IconButton,
@@ -182,7 +181,7 @@ export const Component = () => {
         </Typography>
         <Stack direction="row" justifyContent="center" alignItems="center">
           <Typography variant="body1">{teamSelect.wallet}</Typography>
-          <IconButton aria-label="ContentCopyIcon" onClick={handleNavigator} size="medium">
+          <IconButton aria-label="ContentCopyIcon" onClick={handleNavigator} size="medium" color="primary">
             <ContentCopyIcon fontSize="medium" />
           </IconButton>
         </Stack>
