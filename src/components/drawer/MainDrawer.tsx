@@ -103,7 +103,6 @@ const MainDrawer: FC<DrawerProps> = (props) => {
           />
         </Toolbar>
       </Box>
-
       <Toolbar sx={{ display: { xs: 'block', sm: 'block', md: 'none' }, my: 2 }}>
         <Grid container spacing={2} alignItems="center">
           <Grid item>
