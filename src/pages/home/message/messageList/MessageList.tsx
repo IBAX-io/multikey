@@ -1,30 +1,30 @@
-import { useState, useEffect, useMemo, useCallback, UIEvent, useRef } from 'react';
-import {
-  Stack,
-  Typography,
-  TableContainer,
-  Table,
-  TableRow,
-  TableBody,
-  TableCell,
-  Tooltip,
-  Button,
-  TablePagination,
-  Box,
-  List,
-  ListItem,
-  CircularProgress
-} from '@mui/material';
 import MainContainer from '@/components/cantainer/MainContainer';
-import { useTranslation } from 'react-i18next';
+import SkeletonBox from '@/components/cantainer/SkeletonBox';
+import { MessageItem, MessageList, MessageParams, TeamItem } from '@/dataType';
+import { handleSecondUTC, handleSecondsAgo } from '@/plugins/day';
+import { handleBatchRequests, handleMessageList } from '@/plugins/request/api';
+import util from '@/plugins/util';
 import { useAppSelector } from '@/store/hooks';
 import { getSelectTeam } from '@/store/team';
-import { TeamItem, MessageItem, MessageList, MessageParams } from '@/dataType';
-import { handleMessageList, handleBatchRequests } from '@/plugins/request/api';
-import { handleSecondUTC, handleSecondsAgo } from '@/plugins/day';
-import util from '@/plugins/util';
+import {
+  Box,
+  Button,
+  CircularProgress,
+  List,
+  ListItem,
+  Stack,
+  Table,
+  TableBody,
+  TableCell,
+  TableContainer,
+  TablePagination,
+  TableRow,
+  Tooltip,
+  Typography
+} from '@mui/material';
+import { UIEvent, useCallback, useEffect, useMemo, useRef, useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import { createSearchParams, useNavigate } from 'react-router-dom';
-import SkeletonBox from '@/components/cantainer/SkeletonBox';
 
 export const Component = () => {
   const { t } = useTranslation();
@@ -272,7 +272,9 @@ export const Component = () => {
                               ''
                             )}
                           </TableCell>
-                          <TableCell align="center">2/{teamSelect.owner_quantity}</TableCell>
+                          <TableCell align="center">
+                            {teamSelect.threshold}/{teamSelect.owner_quantity}
+                          </TableCell>
                           <TableCell align="center">
                             <Button
                               variant="outlined"
