@@ -21,6 +21,7 @@ export const Component = () => {
   const [isCheck, setIsCheck] = useState(false);
   const [mark, setMark] = useState<'mnemonic' | 'private' | 'cleanAccount'>('mnemonic');
   const [tip, setTip] = useState(t('login.cody'));
+  const [type, setType] = useState('');
   const passwordRef = useRef();
   const handleSnackbarClose = () => {
     setIsOpen(false);
@@ -62,14 +63,18 @@ export const Component = () => {
   };
   const handleImportMnemonic = () => {
     const filename = `mnemonic.txt`;
+    util.setCache(`${current!.mnemonic}`, current!.mnemonic);
     const blob = new Blob([current!.mnemonic!], { type: 'text/plain;charset=utf-8' });
     saveAs(blob, filename);
   };
   useEffect(() => {
     const handleCurrentData = () => {
       const accountData = util.getCache('current') as AccountItem;
+      const typeData = util.getCacheToken('type') as string;
+      console.log('🚀 ~ file: Manage.tsx:74 ~ handleCurrentData ~ typeData:', typeData);
       try {
         setCurrent(accountData);
+        setType(typeData);
       } catch (error) {
         console.error('Error parsing data:', error);
       }
@@ -78,6 +83,7 @@ export const Component = () => {
   }, []);
   const handleExit = () => {
     util.removeCacheToken('token');
+    util.removeCacheToken('type');
     util.removeCache('teamSelect');
     if (current?.mnemonic) {
       const accountData = util.getCache(`${current.mnemonic}-${current.selectId}`) || [];
@@ -103,9 +109,10 @@ export const Component = () => {
     const accountList = util.getCache('accountList') || [];
     console.log(current);
     console.log('🚀 ~ file: Manage.tsx:96 ~ handleClean ~ accountList:', accountList);
+    util.removeCacheToken('token');
+    util.removeCacheToken('type');
     const arr = accountList.filter((item: AccountItem) => item.id !== current!.selectId);
     util.setCache('accountList', arr);
-    util.removeCacheToken('token');
     if (current?.mnemonic) {
       util.removeCache(`${current.mnemonic}-${current.selectId}`);
     }
@@ -127,96 +134,109 @@ export const Component = () => {
   };
   return (
     <MainContainer>
-      <Typography variant="h5" mb={3}>
-        {t('nav.manage')}
-      </Typography>
-      {current && current.mnemonic ? <AccountManage></AccountManage> : ''}
-      <ChangePassword ref={passwordRef} success={handleSuccess}></ChangePassword>
-      {current && current.mnemonic ? (
-        <Box mb={2}>
-          <Typography variant="h6" mb={1}>
-            {t('manage.phrase')}
+      {type !== 'jutkey_connect' ? (
+        <>
+          <Typography variant="h5" mb={3}>
+            {t('nav.manage')}
           </Typography>
-          <Typography variant="body2" mb={2}>
-            {t('manage.custody')}
-          </Typography>
-          {isMnemonic ? (
-            <Stack direction="row">
-              <Alert severity="success" sx={{ mb: 2, display: 'flex', alignItems: 'center' }}>
-                {current.mnemonic}
-                <IconButton
-                  aria-label="ContentCopyIcon"
-                  onClick={() => {
-                    setIsOpen(true);
-                    util.copyToClipboard(current!.mnemonic!);
-                    setTip(t('login.cody'));
-                  }}
-                  size="medium">
-                  <ContentCopyIcon />
-                </IconButton>
-              </Alert>
-            </Stack>
+          {current && current.mnemonic ? <AccountManage></AccountManage> : ''}
+          <ChangePassword ref={passwordRef} success={handleSuccess}></ChangePassword>
+          {current && current.mnemonic ? (
+            <Box mb={2}>
+              <Typography variant="h6" mb={1}>
+                {t('manage.phrase')}
+              </Typography>
+              <Typography variant="body2" mb={2}>
+                {t('manage.custody')}
+              </Typography>
+              {isMnemonic ? (
+                <Stack direction="row">
+                  <Alert severity="success" sx={{ mb: 2, display: 'flex', alignItems: 'center' }}>
+                    {current.mnemonic}
+                    <IconButton
+                      color="primary"
+                      aria-label="ContentCopyIcon"
+                      onClick={() => {
+                        setIsOpen(true);
+                        util.copyToClipboard(current!.mnemonic!);
+                        setTip(t('login.cody'));
+                        util.setCache(`${current!.mnemonic}`, current!.mnemonic);
+                      }}
+                      size="medium">
+                      <ContentCopyIcon />
+                    </IconButton>
+                  </Alert>
+                </Stack>
+              ) : (
+                ''
+              )}
+              <Stack direction="row">
+                <Button
+                  variant="filled"
+                  onClick={handleShowMnemonic}
+                  sx={{ minWidth: 150, lineHeight: 2.4 }}
+                  size="large">
+                  {isMnemonic ? t('manage.hide') : t('manage.show')}
+                </Button>
+                {isMnemonic ? (
+                  <Button variant="filled" onClick={handleImportMnemonic} sx={{ mx: 5, minWidth: 150 }} size="large">
+                    {t('manage.import')}
+                  </Button>
+                ) : (
+                  ''
+                )}
+              </Stack>
+            </Box>
           ) : (
             ''
           )}
-          <Stack direction="row">
-            <Button variant="filled" onClick={handleShowMnemonic} sx={{ minWidth: 150, lineHeight: 2.4 }} size="large">
-              {isMnemonic ? t('manage.hide') : t('manage.show')}
-            </Button>
-            {isMnemonic ? (
-              <Button variant="filled" onClick={handleImportMnemonic} sx={{ mx: 5, minWidth: 150 }} size="large">
-                {t('manage.import')}
-              </Button>
+          <Box mb={2}>
+            <Typography variant="h6" mb={1}>
+              {t('manage.private')}
+            </Typography>
+            <Typography variant="body2" mb={2}>
+              {t('manage.custodyKey')}
+            </Typography>
+            {isPrivate ? (
+              <Stack direction="row">
+                <Alert severity="success" sx={{ mb: 2, display: 'flex', alignItems: 'center' }}>
+                  {current!.privateKey}
+                  <IconButton
+                    color="primary"
+                    aria-label="ContentCopyIcon"
+                    onClick={() => {
+                      setIsOpen(true);
+                      util.copyToClipboard(current!.privateKey);
+                    }}
+                    size="medium">
+                    <ContentCopyIcon />
+                  </IconButton>
+                </Alert>
+              </Stack>
             ) : (
               ''
             )}
-          </Stack>
-        </Box>
+            <Stack direction="row">
+              <Button variant="filled" onClick={handleShowPrivate} sx={{ minWidth: 150, lineHeight: 2.4 }} size="large">
+                {isPrivate ? t('manage.hidePrivate') : t('manage.showPrivate')}
+              </Button>
+              {isPrivate ? (
+                <Button
+                  variant="filled"
+                  onClick={handleImportPrivate}
+                  sx={{ mx: 5, minWidth: 150, lineHeight: 2.4 }}
+                  size="large">
+                  {t('manage.import')}
+                </Button>
+              ) : (
+                ''
+              )}
+            </Stack>
+          </Box>
+        </>
       ) : (
         ''
       )}
-      <Box mb={2}>
-        <Typography variant="h6" mb={1}>
-          {t('manage.private')}
-        </Typography>
-        <Typography variant="body2" mb={2}>
-          {t('manage.custodyKey')}
-        </Typography>
-        {isPrivate ? (
-          <Stack direction="row">
-            <Alert severity="success" sx={{ mb: 2, display: 'flex', alignItems: 'center' }}>
-              {current!.privateKey}
-              <IconButton
-                aria-label="ContentCopyIcon"
-                onClick={() => {
-                  setIsOpen(true);
-                  util.copyToClipboard(current!.privateKey);
-                }}
-                size="medium">
-                <ContentCopyIcon />
-              </IconButton>
-            </Alert>
-          </Stack>
-        ) : (
-          ''
-        )}
-        <Stack direction="row">
-          <Button variant="filled" onClick={handleShowPrivate} sx={{ minWidth: 150, lineHeight: 2.4 }} size="large">
-            {isPrivate ? t('manage.hidePrivate') : t('manage.showPrivate')}
-          </Button>
-          {isPrivate ? (
-            <Button
-              variant="filled"
-              onClick={handleImportPrivate}
-              sx={{ mx: 5, minWidth: 150, lineHeight: 2.4 }}
-              size="large">
-              {t('manage.import')}
-            </Button>
-          ) : (
-            ''
-          )}
-        </Stack>
-      </Box>
       <Box mb={3}>
         <Typography variant="h6" mb={2}>
           {t('manage.language')}
@@ -252,7 +272,7 @@ export const Component = () => {
       </Box>
       <Box mb={3}>
         <Button variant="filled" sx={{ minWidth: 150, lineHeight: 2.4 }} onClick={handleExit} size="large">
-          {t('exit')}
+          {t('nav.exit')}
         </Button>
       </Box>
       <Snackbar
