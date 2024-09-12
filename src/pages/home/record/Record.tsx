@@ -397,6 +397,7 @@ export const Component = () => {
                             {keyring.addressString(item.recipient_id)}
                           </Typography>
                           <IconButton
+                            color="primary"
                             aria-label="ContentCopyIcon"
                             onClick={() => {
                               util.copyToClipboard(keyring.addressString(item.recipient_id));
@@ -426,6 +427,7 @@ export const Component = () => {
                           {item.txhash}
                         </Typography>
                         <IconButton
+                          color="primary"
                           sx={{ fontSize: 14 }}
                           aria-label="ContentCopyIcon"
                           onClick={() => {
