@@ -1,15 +1,15 @@
 import dayjs from 'dayjs';
-import utc from 'dayjs/plugin/utc';
+import 'dayjs/locale/ar';
+import 'dayjs/locale/en';
+import 'dayjs/locale/es';
+import 'dayjs/locale/ja';
+import 'dayjs/locale/tr';
+import 'dayjs/locale/zh-cn';
+import 'dayjs/locale/zh-tw';
 import localizedFormat from 'dayjs/plugin/localizedFormat';
 import relativeTime from 'dayjs/plugin/relativeTime';
 import timezone from 'dayjs/plugin/timezone';
-import 'dayjs/locale/zh-cn';
-import 'dayjs/locale/zh-tw';
-import 'dayjs/locale/en';
-import 'dayjs/locale/ja';
-import 'dayjs/locale/es';
-import 'dayjs/locale/tr';
-import 'dayjs/locale/ar';
+import utc from 'dayjs/plugin/utc';
 (dayjs as any).extend(localizedFormat);
 (dayjs as any).extend(relativeTime);
 (dayjs as any).extend(utc);
@@ -30,6 +30,9 @@ export function handleSecond(millisecond: string | number) {
 }
 export function handleSecondMinute(millisecond: string | number) {
   return millisecond ? (dayjs as any)(Number(millisecond) * 1000).format('DD/MM YY HH:mm') : '';
+}
+export function handleSecondMinute1(millisecond: string | number) {
+  return millisecond ? (dayjs as any)(Number(millisecond)).format('DD-MM  HH:mm') : '';
 }
 export function handleSecondUTCMinute(millisecond: string | number) {
   return millisecond ? `${dayjs.utc(Number(millisecond) * 1000).format('DD/MM YY HH:mm')} (UTC)` : '';
