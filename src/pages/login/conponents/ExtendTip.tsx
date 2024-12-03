@@ -32,7 +32,7 @@ const BootstrapDialog = styled(Dialog)(({ theme }) => {
     }
   };
 });
-const href = 'https://www.google.com';
+const href = 'https://www.jutkey.com';
 const ExtendTip = ({ isTip, closeDialog }: { isTip: boolean; closeDialog: () => void }) => {
   const { t } = useTranslation();
   const handleTokenClose = () => {

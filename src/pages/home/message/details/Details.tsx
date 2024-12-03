@@ -423,12 +423,13 @@ export const Component = () => {
           </List>
         </Box>
       )}
+
       <Box sx={{ py: 2, textAlign: 'center' }}>
         <Button
           variant="outlined"
           sx={{ minWidth: 150, lineHeight: 2.4, height: 52 }}
           component={Link}
-          to={`${currNetwork.blockexplorer}/blockchain/hash/${txhash}`}
+          to={`${currNetwork.blockexplorer}/tx/${txhash}`}
           target="_blank"
           fullWidth={false}
           endIcon={<ArrowForwardIcon />}
